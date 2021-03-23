@@ -8,6 +8,7 @@ class TekUser {
     String email
     String website
     String bio
+    // Hello
 
 
     String toString(){ fullName }
