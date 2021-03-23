@@ -106,3 +106,22 @@ sftp-config.json
 
 # Linux trash folder which might appear on any partition or disk
 .Trash-*
+
+# IDE support files
+.asscache
+.classpath
+.launch
+.project
+.settings
+*.launch
+*.tmproj
+ivy*
+eclipse
+remote/DB/
+.slcache/
+
+.idea/
+out/
+lib/build/
+*.iml
+coverage-error.log
