@@ -5,9 +5,9 @@ package tekdays
 import grails.test.mixin.*
 import spock.lang.*
 
-@TestFor(TekEventController)
-@Mock(TekEvent)
-class TekEventControllerSpec extends Specification {
+@TestFor(TaskController)
+@Mock(Task)
+class TaskControllerSpec extends Specification {
 
     def populateValidParams(params) {
         assert params != null
@@ -21,8 +21,8 @@ class TekEventControllerSpec extends Specification {
             controller.index()
 
         then:"The model is correct"
-            !model.tekEventInstanceList
-            model.tekEventInstanceCount == 0
+            !model.taskInstanceList
+            model.taskInstanceCount == 0
     }
 
     void "Test the create action returns the correct model"() {
@@ -30,7 +30,7 @@ class TekEventControllerSpec extends Specification {
             controller.create()
 
         then:"The model is correctly created"
-            model.tekEventInstance!= null
+            model.taskInstance!= null
     }
 
     void "Test the save action correctly persists an instance"() {
@@ -38,25 +38,25 @@ class TekEventControllerSpec extends Specification {
         when:"The save action is executed with an invalid instance"
             request.contentType = FORM_CONTENT_TYPE
             request.method = 'POST'
-            def tekEvent = new TekEvent()
-            tekEvent.validate()
-            controller.save(tekEvent)
+            def task = new Task()
+            task.validate()
+            controller.save(task)
 
         then:"The create view is rendered again with the correct model"
-            model.tekEventInstance!= null
+            model.taskInstance!= null
             view == 'create'
 
         when:"The save action is executed with a valid instance"
             response.reset()
             populateValidParams(params)
-            tekEvent = new TekEvent(params)
+            task = new Task(params)
 
-            controller.save(tekEvent)
+            controller.save(task)
 
         then:"A redirect is issued to the show action"
-            response.redirectedUrl == '/tekEvent/show/1'
+            response.redirectedUrl == '/task/show/1'
             controller.flash.message != null
-            TekEvent.count() == 1
+            Task.count() == 1
     }
 
     void "Test that the show action returns the correct model"() {
@@ -68,11 +68,11 @@ class TekEventControllerSpec extends Specification {
 
         when:"A domain instance is passed to the show action"
             populateValidParams(params)
-            def tekEvent = new TekEvent(params)
-            controller.show(tekEvent)
+            def task = new Task(params)
+            controller.show(task)
 
         then:"A model is populated containing the domain instance"
-            model.tekEventInstance == tekEvent
+            model.taskInstance == task
     }
 
     void "Test that the edit action returns the correct model"() {
@@ -84,11 +84,11 @@ class TekEventControllerSpec extends Specification {
 
         when:"A domain instance is passed to the edit action"
             populateValidParams(params)
-            def tekEvent = new TekEvent(params)
-            controller.edit(tekEvent)
+            def task = new Task(params)
+            controller.edit(task)
 
         then:"A model is populated containing the domain instance"
-            model.tekEventInstance == tekEvent
+            model.taskInstance == task
     }
 
     void "Test the update action performs an update on a valid domain instance"() {
@@ -98,28 +98,28 @@ class TekEventControllerSpec extends Specification {
             controller.update(null)
 
         then:"A 404 error is returned"
-            response.redirectedUrl == '/tekEvent/index'
+            response.redirectedUrl == '/task/index'
             flash.message != null
 
 
         when:"An invalid domain instance is passed to the update action"
             response.reset()
-            def tekEvent = new TekEvent()
-            tekEvent.validate()
-            controller.update(tekEvent)
+            def task = new Task()
+            task.validate()
+            controller.update(task)
 
         then:"The edit view is rendered again with the invalid instance"
             view == 'edit'
-            model.tekEventInstance == tekEvent
+            model.taskInstance == task
 
         when:"A valid domain instance is passed to the update action"
             response.reset()
             populateValidParams(params)
-            tekEvent = new TekEvent(params).save(flush: true)
-            controller.update(tekEvent)
+            task = new Task(params).save(flush: true)
+            controller.update(task)
 
         then:"A redirect is issues to the show action"
-            response.redirectedUrl == "/tekEvent/show/$tekEvent.id"
+            response.redirectedUrl == "/task/show/$task.id"
             flash.message != null
     }
 
@@ -130,23 +130,23 @@ class TekEventControllerSpec extends Specification {
             controller.delete(null)
 
         then:"A 404 is returned"
-            response.redirectedUrl == '/tekEvent/index'
+            response.redirectedUrl == '/task/index'
             flash.message != null
 
         when:"A domain instance is created"
             response.reset()
             populateValidParams(params)
-            def tekEvent = new TekEvent(params).save(flush: true)
+            def task = new Task(params).save(flush: true)
 
         then:"It exists"
-            TekEvent.count() == 1
+            Task.count() == 1
 
         when:"The domain instance is passed to the delete action"
-            controller.delete(tekEvent)
+            controller.delete(task)
 
         then:"The instance is deleted"
-            TekEvent.count() == 0
-            response.redirectedUrl == '/tekEvent/index'
+            Task.count() == 0
+            response.redirectedUrl == '/task/index'
             flash.message != null
     }
 }
