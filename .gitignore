@@ -110,21 +110,17 @@ sftp-config.json
 
 # IDE support files
 .asscache
-.classpath
+
 .launch
 .project
-.settings
-*.launch
+
 *.tmproj
 ivy*
 eclipse
 remote/DB/
 .slcache/
 
-.idea/
 out/
 lib/build/
-*.iml
+
 coverage-error.log
-
-
