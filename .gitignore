@@ -125,3 +125,5 @@ out/
 lib/build/
 
 coverage-error.log
+
+bin/
