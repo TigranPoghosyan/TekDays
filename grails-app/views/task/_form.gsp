@@ -1,4 +1,4 @@
-<%@ page import="tekdays.Task" %>
+<%@ page import="com.tekdays.Task" %>
 
 
 
@@ -25,7 +25,7 @@
 		<g:message code="task.assignedTo.label" default="Assigned To" />
 		
 	</label>
-	<g:select id="assignedTo" name="assignedTo.id" from="${tekdays.TekUser.list()}" optionKey="id" value="${taskInstance?.assignedTo?.id}" class="many-to-one" noSelection="['null': '']"/>
+	<g:select id="assignedTo" name="assignedTo.id" from="${com.tekdays.TekUser.list()}" optionKey="id" value="${taskInstance?.assignedTo?.id}" class="many-to-one" noSelection="['null': '']"/>
 
 </div>
 
@@ -43,7 +43,7 @@
 		<g:message code="task.event.label" default="Event" />
 		<span class="required-indicator">*</span>
 	</label>
-	<g:select id="event" name="event.id" from="${tekdays.TekEvent.list()}" optionKey="id" required="" value="${taskInstance?.event?.id}" class="many-to-one"/>
+	<g:select id="event" name="event.id" from="${com.tekdays.TekEvent.list()}" optionKey="id" required="" value="${taskInstance?.event?.id}" class="many-to-one"/>
 
 </div>
 

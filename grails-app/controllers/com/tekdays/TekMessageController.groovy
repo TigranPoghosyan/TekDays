@@ -1,4 +1,4 @@
-package tekdays
+package com.tekdays
 
 
 
@@ -9,11 +9,24 @@ import grails.transaction.Transactional
 class TekMessageController {
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
-
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
-        respond TekMessage.list(params), model:[tekMessageInstanceCount: TekMessage.count()]
+        def list
+        def count
+        def event = TekEvent.get(params.id)
+        if(event){
+            list = TekMessage.findAllByEvent(event, params)
+            count = TekMessage.countByEvent(event)
+        }
+        else {
+            list = TekMessage.list(params)
+            count = TekMessage.count()
+        }
+        render view:'ajaxIndex', model:[tekMessageInstanceList: list,
+                                        tekMessageInstanceCount: count,
+                                        event: event]
     }
+
 
     def show(TekMessage tekMessageInstance) {
         respond tekMessageInstance
@@ -101,4 +114,21 @@ class TekMessageController {
             '*'{ render status: NOT_FOUND }
         }
     }
+
+    def showDetail() {
+        def tekMessageInstance = TekMessage.get(params.id)
+        if (tekMessageInstance) {
+            render(template:"details", model:[tekMessageInstance:tekMessageInstance])
+        }
+        else {
+            render "No message found with id: ${params.id}"
+        }
+    }
+
+    def reply = {
+        def parent = TekMessage.get(params.id)
+        def tekMessageInstance = new TekMessage(parent:parent, event:parent.event, subject:"RE: $parent.subject")
+        render view:'create', model:['tekMessageInstance':tekMessageInstance]
+    }
+
 }

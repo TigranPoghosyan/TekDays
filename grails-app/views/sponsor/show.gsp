@@ -1,5 +1,5 @@
 
-<%@ page import="tekdays.Sponsor" %>
+<%@ page import="com.tekdays.Sponsor" %>
 <!DOCTYPE html>
 <html>
 	<head>

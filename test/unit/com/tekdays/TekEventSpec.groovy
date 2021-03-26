@@ -1,4 +1,4 @@
-package tekdays
+package com.tekdays
 
 import grails.test.mixin.TestFor
 import spock.lang.Specification

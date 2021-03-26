@@ -1,4 +1,4 @@
-<%@ page import="tekdays.TekEvent" %>
+<%@ page import="com.tekdays.TekEvent" %>
 
 
 
@@ -34,7 +34,7 @@
 		<g:message code="tekEvent.organizer.label" default="Organizer" />
 		<span class="required-indicator">*</span>
 	</label>
-	<g:select id="organizer" name="organizer.id" from="${tekdays.TekUser.list()}" optionKey="id" required="" value="${tekEventInstance?.organizer?.id}" class="many-to-one"/>
+	<g:select id="organizer" name="organizer.id" from="${com.tekdays.TekUser.list()}" optionKey="id" required="" value="${tekEventInstance?.organizer?.id}" class="many-to-one"/>
 
 </div>
 
@@ -74,12 +74,12 @@
 		<g:message code="tekEvent.volunteers.label" default="Volunteers" />
 		
 	</label>
-	<g:select name="volunteers" from="${tekdays.TekUser.list()}" multiple="multiple" optionKey="id" size="5" value="${tekEventInstance?.volunteers*.id}" class="many-to-many"/>
+	<g:select name="volunteers" from="${com.tekdays.TekUser.list()}" multiple="multiple" optionKey="id" size="5" value="${tekEventInstance?.volunteers*.id}" class="many-to-many"/>
 
 </div>
 
 <div class="fieldcontain ${hasErrors(bean: tekEventInstance, field: 'sponsorships', 'error')} ">
-	<label for="sponsorships">
+	%{--@declare id="sponsorships"--}%<label for="sponsorships">
 		<g:message code="tekEvent.sponsorships.label" default="Sponsorships" />
 		
 	</label>
@@ -89,7 +89,7 @@
     <li><g:link controller="sponsorShip" action="show" id="${s.id}">${s?.encodeAsHTML()}</g:link></li>
 </g:each>
 <li class="add">
-<g:link controller="sponsorShip" action="create" params="['tekEvent.id': tekEventInstance?.id]">${message(code: 'default.add.label', args: [message(code: 'sponsorShip.label', default: 'SponsorShip')])}</g:link>
+<g:link controller="sponsorShip" action="create" params="['event.id': tekEventInstance?.id]">${message(code: 'default.add.label', args: [message(code: 'sponsorShip.label', default: 'SponsorShip')])}</g:link>
 </li>
 </ul>
 
@@ -97,7 +97,7 @@
 </div>
 
 <div class="fieldcontain ${hasErrors(bean: tekEventInstance, field: 'task', 'error')} ">
-	<label for="task">
+	%{--@declare id="task"--}%<label for="task">
 		<g:message code="tekEvent.task.label" default="Task" />
 		
 	</label>
@@ -115,7 +115,7 @@
 </div>
 
 <div class="fieldcontain ${hasErrors(bean: tekEventInstance, field: 'messages', 'error')} ">
-	<label for="messages">
+	%{--@declare id="messages"--}%<label for="messages">
 		<g:message code="tekEvent.messages.label" default="Messages" />
 		
 	</label>
@@ -125,7 +125,7 @@
     <li><g:link controller="tekMessage" action="show" id="${m.id}">${m?.encodeAsHTML()}</g:link></li>
 </g:each>
 <li class="add">
-<g:link controller="tekMessage" action="create" params="['tekEvent.id': tekEventInstance?.id]">${message(code: 'default.add.label', args: [message(code: 'tekMessage.label', default: 'TekMessage')])}</g:link>
+<g:link controller="tekMessage" action="create" params="['event.id': tekEventInstance?.id]">${message(code: 'default.add.label', args: [message(code: 'tekMessage.label', default: 'TekMessage')])}</g:link>
 </li>
 </ul>
 
@@ -133,7 +133,7 @@
 </div>
 
 <div class="fieldcontain ${hasErrors(bean: tekEventInstance, field: 'respondents', 'error')} ">
-	<label for="respondents">
+	%{--@declare id="respondents"--}%<label for="respondents">
 		<g:message code="tekEvent.respondents.label" default="Respondents" />
 		
 	</label>
@@ -146,7 +146,7 @@
 		<g:message code="tekEvent.sponsors.label" default="Sponsors" />
 		
 	</label>
-	<g:select name="sponsors" from="${tekdays.Sponsor.list()}" multiple="multiple" optionKey="id" size="5" value="${tekEventInstance?.sponsors*.id}" class="many-to-many"/>
+	<g:select name="sponsors" from="${com.tekdays.Sponsor.list()}" multiple="multiple" optionKey="id" size="5" value="${tekEventInstance?.sponsors*.id}" class="many-to-many"/>
 
 </div>
 

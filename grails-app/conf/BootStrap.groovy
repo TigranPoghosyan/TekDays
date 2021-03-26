@@ -1,8 +1,8 @@
 import com.tekdays.*
-import tekdays.Sponsor
-import tekdays.SponsorShip
-import tekdays.TekEvent
-import tekdays.TekUser
+import com.tekdays.Sponsor
+import com.tekdays.SponsorShip
+import com.tekdays.TekEvent
+import com.tekdays.TekUser
 
 
 class BootStrap {

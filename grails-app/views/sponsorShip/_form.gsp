@@ -1,4 +1,4 @@
-<%@ page import="tekdays.SponsorShip" %>
+<%@ page import="com.tekdays.SponsorShip" %>
 
 
 
@@ -7,7 +7,7 @@
 		<g:message code="sponsorShip.event.label" default="Event" />
 		<span class="required-indicator">*</span>
 	</label>
-	<g:select id="event" name="event.id" from="${tekdays.TekEvent.list()}" optionKey="id" required="" value="${sponsorShipInstance?.event?.id}" class="many-to-one"/>
+	<g:select id="event" name="event.id" from="${com.tekdays.TekEvent.list()}" optionKey="id" required="" value="${sponsorShipInstance?.event?.id}" class="many-to-one"/>
 
 </div>
 
@@ -16,7 +16,7 @@
 		<g:message code="sponsorShip.sponsor.label" default="Sponsor" />
 		<span class="required-indicator">*</span>
 	</label>
-	<g:select id="sponsor" name="sponsor.id" from="${tekdays.Sponsor.list()}" optionKey="id" required="" value="${sponsorShipInstance?.sponsor?.id}" class="many-to-one"/>
+	<g:select id="sponsor" name="sponsor.id" from="${com.tekdays.Sponsor.list()}" optionKey="id" required="" value="${sponsorShipInstance?.sponsor?.id}" class="many-to-one"/>
 
 </div>
 

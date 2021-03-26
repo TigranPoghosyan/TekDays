@@ -1,5 +1,5 @@
 
-<%@ page import="tekdays.TekMessage" %>
+<%@ page import="com.tekdays.TekMessage" %>
 <!DOCTYPE html>
 <html>
 	<head>

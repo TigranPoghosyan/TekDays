@@ -1,6 +1,12 @@
-package tekdays
+package com.tekdays
+
+import jline.internal.Log
+import org.apache.log4j.LogManager
+
+import java.util.logging.Logger
 
 class Sponsor {
+
 
     String name
     String website
@@ -11,6 +17,7 @@ class Sponsor {
     static belongsTo = TekEvent
 
     String toString(){name}
+
 
     static constraints = {
         name blank: false

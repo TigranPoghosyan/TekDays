@@ -1,4 +1,4 @@
-<%@ page import="tekdays.SponsorShip" %>
+<%@ page import="com.tekdays.SponsorShip" %>
 <!DOCTYPE html>
 <html>
 	<head>

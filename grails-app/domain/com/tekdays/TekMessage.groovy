@@ -1,6 +1,7 @@
-package tekdays
+package com.tekdays
 
 class TekMessage {
+
     String subject
     String content
     TekMessage parent

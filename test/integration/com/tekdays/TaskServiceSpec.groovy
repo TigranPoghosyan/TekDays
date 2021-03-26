@@ -2,8 +2,6 @@ package com.tekdays
 
 import grails.test.mixin.TestFor
 import spock.lang.Specification
-import tekdays.TekEvent
-import tekdays.TekUser
 
 /**
  * See the API for {@link grails.test.mixin.services.ServiceUnitTestMixin}

@@ -1,7 +1,6 @@
 package com.tekdays
 
 import grails.transaction.Transactional
-import tekdays.Task
 
 @Transactional
 class TaskService {

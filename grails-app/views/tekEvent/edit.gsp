@@ -1,4 +1,4 @@
-<%@ page import="tekdays.TekEvent" %>
+<%@ page import="com.tekdays.TekEvent" %>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -34,6 +34,7 @@
 				</fieldset>
 				<fieldset class="buttons">
 					<g:actionSubmit class="save" action="update" value="${message(code: 'default.button.update.label', default: 'Update')}" />
+
 				</fieldset>
 			</g:form>
 		</div>

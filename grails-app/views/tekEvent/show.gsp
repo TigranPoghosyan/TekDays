@@ -1,4 +1,4 @@
-<%@ page import="tekdays.TekEvent" %>
+<%@ page import="com.tekdays.TekEvent" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,7 +21,7 @@
 </div>
 
 <div id="show-tekEvent" class="content scaffold-show" role="main">
-    <h1>${tekEventInstance?.name}</h1>
+    <h1>${tekMessageInstance?.event?.name} Forum - New Message</h1>
     <g:if test="${flash.message}">
         <div class="message" role="status">${flash.message}</div>
     </g:if>
@@ -56,7 +56,6 @@
             <li class="fieldcontain">
                 <span id="organizer-label" class="property-label"><g:message code="tekEvent.organizer.label"
                                                                              default="Organizer"/></span>
-
                 <span class="property-value" aria-labelledby="organizer-label"><g:link controller="tekUser"
                                                                                        action="show"
                                                                                        id="${tekEventInstance?.organizer?.id}">${tekEventInstance?.organizer?.encodeAsHTML()}</g:link></span>
@@ -120,7 +119,7 @@
                 <g:each in="${tekEventInstance.sponsorships}" var="s">
                     <span class="property-value" aria-labelledby="sponsorships-label">
                         <g:link controller="sponsorship" action="show"
-                                id="${s.id}">${s?.sponsor.encodeAsHTML()}</g:link></span>
+                                id="${s.id}">${s?.sponsor?.encodeAsHTML()}</g:link></span>
                 </g:each>
             </li>
         </g:if>
@@ -139,14 +138,14 @@
 
         <g:if test="${tekEventInstance?.messages}">
             <li class="fieldcontain">
-                <span id="messages-label" class="property-label"><g:message code="tekEvent.messages.label"
-                                                                            default="Messages"/></span>
+                <span id="messages-label" class="property-label"><g:message
+                        code="tekEvent.messages.label" default="Messages"/></span>
 
-                <g:each in="${tekEventInstance.messages}" var="m">
-                    <span class="property-value" aria-labelledby="messages-label"><g:link controller="tekMessage"
-                                                                                          action="show"
-                                                                                          id="${m.id}">${m?.encodeAsHTML()}</g:link></span>
-                </g:each>
+                <span class="property-value" aria-labelledby="messages-label">
+                    <g:link controller="tekMessage" action="index"
+                            id="${tekEventInstance.id}">
+                        View Messages
+                    </g:link></span>
 
             </li>
         </g:if>
@@ -173,6 +172,7 @@
                                                                                           action="show"
                                                                                           id="${s.id}">${s?.encodeAsHTML()}</g:link></span>
                 </g:each>
+
 
             </li>
         </g:if>

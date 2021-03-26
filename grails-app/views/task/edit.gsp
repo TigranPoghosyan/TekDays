@@ -1,4 +1,4 @@
-<%@ page import="tekdays.Task" %>
+<%@ page import="com.tekdays.Task" %>
 <!DOCTYPE html>
 <html>
 	<head>
