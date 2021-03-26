@@ -1,7 +1,5 @@
 <%@ page import="com.tekdays.Sponsor" %>
 
-
-
 <div class="fieldcontain ${hasErrors(bean: sponsorInstance, field: 'name', 'error')} required">
 	<label for="name">
 		<g:message code="sponsor.name.label" default="Name" />

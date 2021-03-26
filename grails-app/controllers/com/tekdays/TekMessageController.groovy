@@ -1,6 +1,7 @@
 package com.tekdays
 
-
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
@@ -8,7 +9,9 @@ import grails.transaction.Transactional
 @Transactional(readOnly = true)
 class TekMessageController {
 
+    public static final Logger LOGGER = LoggerFactory.getLogger(TekMessageController.class)
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
+
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
         def list
@@ -49,6 +52,7 @@ class TekMessageController {
         }
 
         tekMessageInstance.save flush:true
+        LOGGER.info('You create new message which author is: {}',tekMessageInstance?.author)
 
         request.withFormat {
             form multipartForm {

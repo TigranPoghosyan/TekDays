@@ -1,5 +1,8 @@
 package com.tekdays
 
+import groovy.util.logging.Slf4j
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 
 
 import static org.springframework.http.HttpStatus.*
@@ -7,6 +10,8 @@ import grails.transaction.Transactional
 
 @Transactional(readOnly = true)
 class SponsorController {
+
+    public static final Logger LOGGER = LoggerFactory.getLogger(SponsorController.class)
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
@@ -16,6 +21,7 @@ class SponsorController {
     }
 
     def show(Sponsor sponsorInstance) {
+        LOGGER.info('Trying showing instance with id: {}',sponsorInstance?.id)
         respond sponsorInstance
     }
 

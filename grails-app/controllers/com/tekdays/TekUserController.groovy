@@ -1,6 +1,7 @@
 package com.tekdays
 
-
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional

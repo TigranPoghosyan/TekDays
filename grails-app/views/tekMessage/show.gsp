@@ -35,7 +35,6 @@
 				<g:if test="${tekMessageInstance?.content}">
 				<li class="fieldcontain">
 					<span id="content-label" class="property-label"><g:message code="tekMessage.content.label" default="Content" /></span>
-					
 						<span class="property-value" aria-labelledby="content-label"><g:fieldValue bean="${tekMessageInstance}" field="content"/></span>
 					
 				</li>

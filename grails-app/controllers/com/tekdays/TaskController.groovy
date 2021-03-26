@@ -1,6 +1,7 @@
 package com.tekdays
 
-
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
@@ -8,6 +9,7 @@ import grails.transaction.Transactional
 @Transactional(readOnly = true)
 class TaskController {
 
+    public static final Logger LOGGER = LoggerFactory.getLogger(TaskController.class)
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
     def index(Integer max) {
@@ -16,6 +18,7 @@ class TaskController {
     }
 
     def show(Task taskInstance) {
+        LOGGER.info('Trying showing instance with Event: {}',taskInstance?.event)
         respond taskInstance
     }
 
