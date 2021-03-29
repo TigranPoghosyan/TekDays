@@ -13,7 +13,7 @@ class TekEvent {
     static hasMany = [volunteers  : TekUser,
                       respondents : String,
                       sponsorships: SponsorShip,
-                      tasks        : Task,
+                      tasks       : Task,
                       messages    : TekMessage,
                       sponsors    : Sponsor]
 
