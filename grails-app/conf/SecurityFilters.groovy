@@ -1,5 +1,3 @@
-package tekdays
-
 class SecurityFilters {
     def filters = {
         doLogin(controller: '*', action: '*') {

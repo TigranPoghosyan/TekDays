@@ -1,4 +1,4 @@
-<%@ page import="com.tekdays.TekEvent" %>
+<%@ page import="com.tekdays.TekUser; com.tekdays.TekEvent" %>
 
 
 
@@ -31,10 +31,16 @@
 
 <div class="fieldcontain ${hasErrors(bean: tekEventInstance, field: 'organizer', 'error')} required">
 	<label for="organizer">
+
 		<g:message code="tekEvent.organizer.label" default="Organizer" />
 		<span class="required-indicator">*</span>
 	</label>
-	<g:select id="organizer" name="organizer.id" from="${com.tekdays.TekUser.list()}" optionKey="id" required="" value="${tekEventInstance?.organizer?.id}" class="many-to-one"/>
+	<g:if test="${session.user?.id != tekEventInstance?.organizer?.id}">
+		<g:select id="organizer" name="organizer.id" from="${session.user}" optionKey="id" required="" value="${tekEventInstance?.organizer?.id}" class="many-to-one"/>
+	</g:if>
+	<g:else>
+		<g:select id="organizer" name="organizer.id" from="${TekUser.list()}" optionKey="id" required="" value="${tekEventInstance?.organizer?.id}" class="many-to-one"/>
+	</g:else>
 
 </div>
 
