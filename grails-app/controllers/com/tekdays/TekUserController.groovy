@@ -108,7 +108,11 @@ class TekUserController {
         if (user && user.password == params.password) {
             session.user = user
             if (params.cName) {
-                redirect controller: params.cName, action: params.aName
+                if (params.aName == 'delete'){
+                    redirect(controller: params.cName, action:'show', id: params.id)
+                    return
+                }
+                redirect controller: params.cName, action: params.aName, id: params.id
             } else {
                 redirect controller: 'tekEvent', action: 'index'
             }
@@ -120,7 +124,7 @@ class TekUserController {
 
     def login() {
         if (params.cName)
-            return [cName: params.cName, aName: params.aName]
+            return [cName: params.cName, aName: params.aName, id: params.id]
     }
 
     def logout = {
