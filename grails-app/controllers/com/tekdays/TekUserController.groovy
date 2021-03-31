@@ -9,11 +9,12 @@ import grails.transaction.Transactional
 @Transactional(readOnly = true)
 class TekUserController {
 
+    public static final Logger LOGGER = LoggerFactory.getLogger(TekEventController.class);
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
-        respond TekUser.list(params), model:[tekUserInstanceCount: TekUser.count()]
+        respond TekUser.list(params), model: [tekUserInstanceCount: TekUser.count()]
     }
 
     def show(TekUser tekUserInstance) {
@@ -32,11 +33,11 @@ class TekUserController {
         }
 
         if (tekUserInstance.hasErrors()) {
-            respond tekUserInstance.errors, view:'create'
+            respond tekUserInstance.errors, view: 'create'
             return
         }
 
-        tekUserInstance.save flush:true
+        tekUserInstance.save flush: true
 
         request.withFormat {
             form multipartForm {
@@ -59,18 +60,18 @@ class TekUserController {
         }
 
         if (tekUserInstance.hasErrors()) {
-            respond tekUserInstance.errors, view:'edit'
+            respond tekUserInstance.errors, view: 'edit'
             return
         }
 
-        tekUserInstance.save flush:true
+        tekUserInstance.save flush: true
 
         request.withFormat {
             form multipartForm {
                 flash.message = message(code: 'default.updated.message', args: [message(code: 'TekUser.label', default: 'TekUser'), tekUserInstance.id])
                 redirect tekUserInstance
             }
-            '*'{ respond tekUserInstance, [status: OK] }
+            '*' { respond tekUserInstance, [status: OK] }
         }
     }
 
@@ -82,14 +83,14 @@ class TekUserController {
             return
         }
 
-        tekUserInstance.delete flush:true
+        tekUserInstance.delete flush: true
 
         request.withFormat {
             form multipartForm {
                 flash.message = message(code: 'default.deleted.message', args: [message(code: 'TekUser.label', default: 'TekUser'), tekUserInstance.id])
-                redirect action:"index", method:"GET"
+                redirect action: "index", method: "GET"
             }
-            '*'{ render status: NO_CONTENT }
+            '*' { render status: NO_CONTENT }
         }
     }
 
@@ -99,24 +100,33 @@ class TekUserController {
                 flash.message = message(code: 'default.not.found.message', args: [message(code: 'tekUser.label', default: 'TekUser'), params.id])
                 redirect action: "index", method: "GET"
             }
-            '*'{ render status: NOT_FOUND }
+            '*' { render status: NOT_FOUND }
         }
     }
+
     def validate() {
         def user = TekUser.findByUserName(params.username)
-        if (user && user.password == params.password){
+        if (user && user.password == params.password) {
             session.user = user
-            redirect controller:'tekEvent', action:'index'
-            if (params.cName)
-                redirect controller: params.cName,action: params.aName
-        }else{
+            LOGGER.info('Successfully added user {}',session.user)
+            if (params.cName) {
+                if (params.aName == 'delete'){
+                    redirect(controller: params.cName, action:'show', id: params.id)
+                    return
+                }
+                redirect controller: params.cName, action: params.aName, id: params.id
+            } else {
+                redirect controller: 'tekEvent', action: 'index'
+            }
+        } else {
             flash.message = "Invalid username and password."
-            render view:'login'
+            render view: 'login'
         }
     }
-    def login(){
+
+    def login() {
         if (params.cName)
-            return [cName:params.cName,aName:params.aName]
+            return [cName: params.cName, aName: params.aName, id: params.id]
     }
 
     def logout = {
