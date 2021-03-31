@@ -87,6 +87,7 @@ class TekEventController {
             return
         }
         //Comment for merge
+        //another comment
         if (tekEventInstance?.organizer?.id != session.user.id){
             redirect(controller: 'tekEvent',action: 'show',id: tekEventInstance.id)
             return
