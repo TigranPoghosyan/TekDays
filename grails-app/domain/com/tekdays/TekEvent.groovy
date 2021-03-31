@@ -32,6 +32,15 @@ class TekEvent {
         messages nullable: true
     }
 
+
+    static mapping = {
+        tasks cascade: 'all-delete-orphan'
+        messages cascade: 'all-delete-orphan'
+        sponsorships cascade: 'all-delete-orphan'
+
+
+    }
+
     @Override
     public String toString() {
         return "$name,$city"

@@ -9,7 +9,7 @@ class BootStrap {
 
     def init = { servletContext ->
 
-        if (!TekEvent.get(1)) {
+        if (!TekEvent.list()) {
             new TekUser(fullName: 'John Doe',
                     userName: 'jdoe',
                     password: 't0ps3cr3t',

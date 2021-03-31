@@ -54,8 +54,12 @@
 		<span class="required-indicator">*</span>
 	</label>
 	<g:textField name="venue" required="" value="${tekEventInstance?.venue}"/>
-
 </div>
+<g:if test="">
+
+</g:if>
+
+
 
 <div class="fieldcontain ${hasErrors(bean: tekEventInstance,
 		field: 'startDate',

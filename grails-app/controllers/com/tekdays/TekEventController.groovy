@@ -50,7 +50,7 @@ class TekEventController {
     }
 
     def edit(TekEvent tekEventInstance) {
-        if (tekEventInstance?.organizer?.id != session.user){
+        if (tekEventInstance?.organizer?.id != session.user.id){
             redirect(controller: 'tekEvent',action: 'show',id: tekEventInstance.id)
         }
         respond tekEventInstance
