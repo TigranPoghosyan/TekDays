@@ -9,6 +9,7 @@ import grails.transaction.Transactional
 @Transactional(readOnly = true)
 class TekUserController {
 
+    public static final Logger LOGGER = LoggerFactory.getLogger(TekEventController.class);
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
     def index(Integer max) {
@@ -107,6 +108,7 @@ class TekUserController {
         def user = TekUser.findByUserName(params.username)
         if (user && user.password == params.password) {
             session.user = user
+            LOGGER.info('Successfully added user {}',session.user)
             if (params.cName) {
                 if (params.aName == 'delete'){
                     redirect(controller: params.cName, action:'show', id: params.id)
