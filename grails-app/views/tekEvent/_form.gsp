@@ -44,6 +44,10 @@
 
 </div>
 
+<div>
+
+</div>
+
 <div class="fieldcontain ${hasErrors(bean: tekEventInstance, field: 'venue', 'error')} required">
 	<label for="venue">
 		<g:message code="tekEvent.venue.label" default="Venue" />
