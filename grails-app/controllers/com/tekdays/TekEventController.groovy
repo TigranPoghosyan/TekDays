@@ -50,6 +50,9 @@ class TekEventController {
     }
 
     def edit(TekEvent tekEventInstance) {
+        if (tekEventInstance?.organizer?.id != session.user){
+            redirect(controller: 'tekEvent',action: 'show',id: tekEventInstance.id)
+        }
         respond tekEventInstance
     }
 
@@ -84,7 +87,13 @@ class TekEventController {
             return
         }
 
-        tekEventInstance.delete flush:true
+        if (tekEventInstance?.organizer?.id != session.user.id){
+            redirect(controller: 'tekEvent',action: 'show',id: tekEventInstance.id)
+            return
+        }
+            tekEventInstance.delete flush:true
+
+
 
         request.withFormat {
             form multipartForm {
