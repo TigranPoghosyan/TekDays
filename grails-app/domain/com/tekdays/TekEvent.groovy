@@ -10,6 +10,7 @@ class TekEvent {
     Date endDate
     String description
 
+    static searchable = true
     static hasMany = [volunteers  : TekUser,
                       respondents : String,
                       sponsorships: SponsorShip,

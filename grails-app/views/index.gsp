@@ -7,9 +7,19 @@
 </head>
 
 <body>
+
+<div id="homeSearch">
+    <g:form controller="tekEvent" action="search">
+        <label>Search:</label>
+        <label for="query"></label><input id="query" type="text" name="query"/>
+        <input type=submit value="Go"/>
+    </g:form>
+</div>
+
+<br>
+
 <div class="welcome">
     <br/>
-
     <h3 style="text-align: center">Welcome to TekDays.com &#128509;</h3>
     <br>
 
@@ -21,8 +31,11 @@
 
 </div>
 
+<g:organizerEvents/>
+<g:volunteerEvents/>
+
 <div class="homeCell">
-    <h3 style="text-align: center">Find a Tek Event &#129395;</h3>
+    <h3>Find a Tek Event &#129395;</h3>
     <br>
 
     <p>See if there's a technical event in the works that strikes your
@@ -31,7 +44,7 @@
     Everybody has a role to play.</p>
     <br>
     <span class="buttons">
-        <g:link controller="tekEvent" action="index">Find a Tek Event</g:link>
+        <g:link controller="tekEvent" class="findEventButton" action="index">Find a Tek Event</g:link>
     </span>
 
 </div>
@@ -54,8 +67,10 @@
 
 <div class="homeCell">
     <br>
+
     <h3 style="text-align: center">Sponsor a Tek Event &#128176;</h3>
     <br>
+
     <p>If you are part of a business or organization that is involved in
     technology then sponsoring a tek event would be a great way to
     let the community know that you're there and you're involved.</p>
