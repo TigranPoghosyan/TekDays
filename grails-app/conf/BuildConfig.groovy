@@ -65,7 +65,9 @@ grails.project.dependency.resolution = {
         compile ':cache:1.1.8'
         // asset-pipeline 2.0+ requires Java 7, use version 1.9.x with Java 6
         compile ":asset-pipeline:2.5.7"
-        
+        compile ":jquery:1.10.3"
+
+
 
 //        compile ":searchable:0.6.6"
 //        compile ":searchable:0.6.8"

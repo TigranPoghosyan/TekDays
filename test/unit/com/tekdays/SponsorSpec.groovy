@@ -15,6 +15,15 @@ class SponsorSpec extends Specification {
     def cleanup() {
     }
 
-    void "test something"() {
+    void "test website name"() {
+        when:"website starts with https://www"
+        def sponsor = new Sponsor(name: 'hello',website: 'https://www.hello.com',description: 'bye',logo: 7)
+        then:"website is valid"
+        sponsor.validate(['website'])
+
+        when:"website doesn't start with https://www"
+        def sponsor1 = new Sponsor(name: 'hello',website: 'https:/www.hello.com',description: 'bye',logo: 7)
+        then:"website is not valid"
+        !sponsor1.validate(['website'])
     }
 }

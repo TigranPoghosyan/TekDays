@@ -23,4 +23,17 @@ class TekEventSpec extends Specification {
         then: "the toString method will combine them."
         tekEvent.toString() == 'Groovy One,San Francisco'
     }
+
+    void "test city length"(){
+        when: "City lengh is blank"
+        def tekEvent = new TekEvent(name: 'Tiks',
+                city:'',
+                organizer: [fullName: 'HOn KOng']as TekUser)
+
+        then:"Event's  city validation should fail"
+        !tekEvent.validate(['city'])
+    }
+
+
+
 }

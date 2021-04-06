@@ -15,6 +15,11 @@ class TekMessageSpec extends Specification {
     def cleanup() {
     }
 
-    void "test something"() {
+    void "test author"() {
+        when:"there is no author"
+        def tekMessage = new TekMessage(author: null,subject: "hello",content: "jhd")
+        then:"Message should not save"
+        !tekMessage.validate(['author'])
+        !tekMessage.save()
     }
 }

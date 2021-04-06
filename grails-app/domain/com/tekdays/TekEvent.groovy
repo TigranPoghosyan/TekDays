@@ -21,7 +21,7 @@ class TekEvent {
 
     static constraints = {
         name()
-        city()
+        city blank: false
         description maxSize: 5000
         organizer()
         venue()

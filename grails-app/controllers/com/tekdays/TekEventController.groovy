@@ -120,5 +120,11 @@ class TekEventController {
             def events = TekEvent.search(params.query).results
         }
     }
+    def volunteer = {
+        def event = TekEvent.get(params.id)
+        event.addToVolunteers(session.user)
+        event.save(flush: true)
+        render "Thank you for Volunteering"
+    }
 
 }

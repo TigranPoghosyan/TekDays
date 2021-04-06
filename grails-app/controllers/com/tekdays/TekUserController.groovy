@@ -10,6 +10,7 @@ import grails.transaction.Transactional
 class TekUserController {
 
     public static final Logger LOGGER = LoggerFactory.getLogger(TekEventController.class);
+
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
     def index(Integer max) {
@@ -66,6 +67,8 @@ class TekUserController {
 
         tekUserInstance.save flush: true
 
+        LOGGER.info('The tekUser updated userName: {}' + tekUserInstance?.userName)
+
         request.withFormat {
             form multipartForm {
                 flash.message = message(code: 'default.updated.message', args: [message(code: 'TekUser.label', default: 'TekUser'), tekUserInstance.id])
@@ -84,6 +87,7 @@ class TekUserController {
         }
 
         tekUserInstance.delete flush: true
+        LOGGER.info("The tekUser deleted userName()" + tekUserInstance.userName)
 
         request.withFormat {
             form multipartForm {
