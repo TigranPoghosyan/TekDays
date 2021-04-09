@@ -42,6 +42,7 @@
             <g:sortableColumn property="startDate"
                               title="${message(code: 'tekEvent.startDate.label',
                                       default: 'Start Date')}"/>
+            <th>Get Rev</th>
         </tr>
         </thead>
         <tbody>
@@ -53,16 +54,17 @@
                     ${fieldValue(bean: tekEventInstance,
                             field: "name")}</g:link>
                 </td>
-                <td>${fieldValue(bean: tekEventInstance,
-                        field: "city")}</td>
-                <td>${fieldValue(bean: tekEventInstance,
-                        field: "description")}
-                </td>
-                <td>${fieldValue(bean: tekEventInstance,
-                        field: "venue")}</td>
-                <td><g:formatDate
-                        date="${tekEventInstance.startDate}" />
-                </td>
+
+                <td>${fieldValue(bean: tekEventInstance, field: "city")}</td>
+
+                <td>${fieldValue(bean: tekEventInstance, field: "description")}</td>
+
+                <td>${fieldValue(bean: tekEventInstance,field: "venue")}</td>
+
+                <td><g:formatDate date="${tekEventInstance.startDate}"/></td>
+
+                <td><g:link action="revisions" id="${tekEventInstance?.id}">${tekEventInstance?.id}</g:link></td>
+
             </tr>
         </g:each>
         </tbody>

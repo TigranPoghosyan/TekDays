@@ -1,4 +1,8 @@
 package com.tekdays
+
+import org.hibernate.envers.Audited
+
+@Audited
 class Task {
 
     String title

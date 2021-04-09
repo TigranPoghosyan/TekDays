@@ -20,5 +20,6 @@ class UrlMappings {
             controller = "tekUser"
             action = "show"
         }
+
 	}
 }

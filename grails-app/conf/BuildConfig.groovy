@@ -54,6 +54,13 @@ grails.project.dependency.resolution = {
         //runtime 'org.mariadb.jdbc:mariadb-java-client:2.7.2'
         //test "org.grails:grails-datastore-test-support:1.0.2-grails-2.4"
         runtime('mysql:mysql-connector-java:5.1.47')
+
+
+    compile ('org.hibernate:hibernate-envers:4.3.11.Final') {
+            transitive = false
+        }
+
+
     }
 
     plugins {
@@ -65,7 +72,7 @@ grails.project.dependency.resolution = {
         compile ':cache:1.1.8'
         // asset-pipeline 2.0+ requires Java 7, use version 1.9.x with Java 6
         compile ":asset-pipeline:2.5.7"
-        compile ":jquery:1.10.3"
+//        compile ":jquery:1.10.3"
 
 
 

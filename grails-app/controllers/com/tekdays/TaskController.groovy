@@ -1,7 +1,12 @@
 package com.tekdays
 
+import org.hibernate.SessionFactory
+import org.hibernate.envers.AuditReaderFactory
+import org.hibernate.envers.query.AuditQuery
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
+import org.springframework.beans.factory.annotation.Autowire
+import org.springframework.beans.factory.annotation.Autowired
 
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
@@ -24,6 +29,13 @@ class TaskController {
 
     def create() {
         respond new Task(params)
+    }
+
+    RevisionService revisionService
+
+    def revisions(){
+        def revisionList = revisionService.revisions(Task.class,params.getLong("id"))
+        [revisionList: revisionList]
     }
 
     @Transactional
