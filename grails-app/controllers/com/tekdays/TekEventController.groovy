@@ -11,10 +11,8 @@ import grails.transaction.Transactional
 @Transactional(readOnly = true)
 class TekEventController {
 
-    SessionFactory sessionFactory
-
     def taskService
-    static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
+    static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE", revision: "PUT"]
 
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
@@ -44,13 +42,6 @@ class TekEventController {
 
     def create() {
         respond new TekEvent(params)
-    }
-
-    RevisionService revisionService
-
-    def revisions(){
-        def revisionList = revisionService.revisions(TekEvent.class,params.getLong("id"))
-        [revisionList: revisionList]
     }
 
     @Transactional
@@ -153,6 +144,17 @@ class TekEventController {
         event.addToVolunteers(session.user)
         event.save(flush: true)
         render "Thank you for Volunteering"
+    }
+
+    RevisionService revisionService
+
+    def revision() {
+        def revisionList = revisionService.revisions(TekEvent.class, params.getLong('id'))
+        [revisionList: revisionList, showList: params.showList]
+    }
+
+    def revisionSelect() {
+        [instance: TekEvent.get(params.id)]
     }
 
 }

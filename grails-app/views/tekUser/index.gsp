@@ -23,7 +23,9 @@
 			<table>
 			<thead>
 					<tr>
-					
+
+						<th>Get Rev</th>
+
 						<g:sortableColumn property="fullName" title="${message(code: 'tekUser.fullName.label', default: 'Full Name')}" />
 					
 						<g:sortableColumn property="userName" title="${message(code: 'tekUser.userName.label', default: 'User Name')}" />
@@ -53,6 +55,8 @@
 						<td>${fieldValue(bean: tekUserInstance, field: "bio")}</td>
 					
 						<td>${fieldValue(bean: tekUserInstance, field: "password")}</td>
+
+						<td><g:link action="revisions" id="${tekUserInstance?.id}">${tekUserInstance?.id}</g:link></td>
 					
 					</tr>
 				</g:each>

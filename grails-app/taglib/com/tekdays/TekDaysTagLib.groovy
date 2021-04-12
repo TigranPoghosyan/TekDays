@@ -89,8 +89,8 @@ class TekDaysTagLib {
         }
     }
 
-    def showRevisions = {
-        def revisionList = it.revisionList
+    def showRevisions = {attrs ->
+        def revisionList = attrs.revisionList
         if (revisionList) {
             out << """
         <table>
@@ -99,8 +99,10 @@ class TekDaysTagLib {
                 <th>RevId</th>
                 <th>RevType</th>
                """
-            revisionList[0][1].properties.each {
-                out << "<th>${it?.key}</th>"
+            revisionList[0][0].properties.each {
+                if (it?.key in attrs.showList) {
+                    out << "<th>${it?.key}</th>"
+                }
             }
             out << """
                 <th>ChangedDate</th>
@@ -108,16 +110,17 @@ class TekDaysTagLib {
             </tr>
         </thead>
         """
-
+            out << "<tbody>"
             revisionList.each {
                 out << """
-                <tbody>
                 <tr>
                 <td>${it[1]?.id}</td>
                 <td>${it[2]}</td>
                 """
-                it[1].properties.each {
-                    out << "<td>${it.value}</td>"
+                it[0].properties.each {
+                    if (it?.key in attrs.showList) {
+                        out << "<td>${it?.value}</td>"
+                    }
                 }
                 out << """
                         <td>${UserRevisionEntity.read(it[1]?.id)?.revisionDate?.format('yyyy-MM-dd HH:mm')}</td>
@@ -126,7 +129,7 @@ class TekDaysTagLib {
                 
             """
             }
-            out <<""" <tbody>
+            out << """ </tbody>
                     </table>"""
         } else {
             out << "<h1> No Revisions for this entity!!! </h1>"

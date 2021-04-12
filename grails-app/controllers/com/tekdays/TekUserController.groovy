@@ -18,6 +18,7 @@ class TekUserController {
         respond TekUser.list(params), model: [tekUserInstanceCount: TekUser.count()]
     }
 
+
     def show(Long id) {
         def tekUserInstance
         if(params.userName){
@@ -41,6 +42,13 @@ class TekUserController {
 
     def create() {
         respond new TekUser(params)
+    }
+
+    RevisionService revisionService
+
+    def revisions(){
+        def revisionList = revisionService.revisions(TekUser.class,params.getLong("id"))
+        [revisionList: revisionList]
     }
 
     @Transactional

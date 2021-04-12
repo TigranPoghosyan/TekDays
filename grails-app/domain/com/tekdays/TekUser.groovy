@@ -24,4 +24,8 @@ class TekUser {
         password nullable: false, blank: false
     }
 
+    static mapping = {
+        fullName lazy: false
+    }
+
 }

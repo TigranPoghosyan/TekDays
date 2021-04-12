@@ -22,6 +22,6 @@
 
 
 <body>
-<g:showRevisions revisionList="${revisionList}"/>
+<g:showRevisions revisionList="${revisionList}" />
 </body>
 </html>

@@ -63,7 +63,8 @@
 
                 <td><g:formatDate date="${tekEventInstance.startDate}"/></td>
 
-                <td><g:link action="revisions" id="${tekEventInstance?.id}">${tekEventInstance?.id}</g:link></td>
+                <td><g:link action="revisionSelect"
+                            id="${tekEventInstance.id}">${tekEventInstance.id}</g:link></td>
 
             </tr>
         </g:each>

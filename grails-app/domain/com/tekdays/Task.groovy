@@ -20,4 +20,10 @@ class Task {
         completed nullable: true
     }
     static belongsTo = TekEvent
+
+    static mapping = {
+        event lazy: false
+        assignedTo lazy: false
+    }
+
 }

@@ -43,8 +43,7 @@ class TekEvent {
         tasks cascade: 'all-delete-orphan'
         messages cascade: 'all-delete-orphan'
         sponsorships cascade: 'all-delete-orphan'
-
-
+        organizer lazy: false
     }
 
     @Override
