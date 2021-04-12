@@ -64,6 +64,7 @@
                         date="${tekEventInstance.startDate}" />
                 </td>
             </tr>
+
         </g:each>
         </tbody>
     </table>
