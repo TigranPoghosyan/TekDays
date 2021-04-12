@@ -1,5 +1,8 @@
 package com.tekdays
 
+import org.hibernate.envers.Audited
+
+@Audited
 class TekUser {
 
     String fullName
@@ -10,14 +13,15 @@ class TekUser {
     String bio
 
 
-    String toString(){ fullName }
+    String toString() { fullName }
 
     static constraints = {
-        fullName()
-        userName nullable: false,unique: true
-        email()
-        website()
-        bio maxSize:5000
+        fullName nullable: false, blank: false
+        userName nullable: false, blank: false
+        email nullable: false, blank: false
+        website nullable: false, blank: false
+        bio nullable: false, blank: false, maxSize: 5000
+        password nullable: false, blank: false
     }
 
 }

@@ -75,11 +75,11 @@ class TekDaysTagLib {
         }
     }
 
-    def volunteerButton = {attrs ->
-        if (request.getSession(false) && session.user){
+    def volunteerButton = { attrs ->
+        if (request.getSession(false) && session.user) {
             def user = session.user.merge()
             def event = TekEvent.get(attrs.eventId as Serializable)
-            if (event && !event.volunteers.contains(user)){
+            if (event && !event.volunteers.contains(user)) {
                 out << "<span id='volunteerSpan' class='menuButton'>"
                 out << "<button id='volunteerButton' type='button'>"
                 out << "Volunteer For This Event"
@@ -89,4 +89,47 @@ class TekDaysTagLib {
         }
     }
 
+    def showRevisions = {
+        def revisionList = it.revisionList
+        if (revisionList) {
+            out << """
+        <table>
+        <thead>
+            <tr>
+                <th>RevId</th>
+                <th>RevType</th>
+               """
+            revisionList[0][1].properties.each {
+                out << "<th>${it?.key}</th>"
+            }
+            out << """
+                <th>ChangedDate</th>
+                <th>User</th>
+            </tr>
+        </thead>
+        """
+
+            revisionList.each {
+                out << """
+                <tbody>
+                <tr>
+                <td>${it[1]?.id}</td>
+                <td>${it[2]}</td>
+                """
+                it[1].properties.each {
+                    out << "<td>${it.value}</td>"
+                }
+                out << """
+                        <td>${UserRevisionEntity.read(it[1]?.id)?.revisionDate?.format('yyyy-MM-dd HH:mm')}</td>
+                        <td>${UserRevisionEntity.read(it[1]?.id)?.currentUser}</td>
+                    </tr>
+                
+            """
+            }
+            out <<""" <tbody>
+                    </table>"""
+        } else {
+            out << "<h1> No Revisions for this entity!!! </h1>"
+        }
+    }
 }

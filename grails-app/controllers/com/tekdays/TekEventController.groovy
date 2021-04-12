@@ -1,13 +1,17 @@
 package com.tekdays
 
-import org.slf4j.Logger
-import org.slf4j.LoggerFactory
+import org.hibernate.SessionFactory
+import org.hibernate.envers.AuditReaderFactory
+import org.hibernate.envers.query.AuditQuery
+import org.springframework.beans.factory.annotation.Autowired
 
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
 
 @Transactional(readOnly = true)
 class TekEventController {
+
+    SessionFactory sessionFactory
 
     def taskService
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
@@ -40,6 +44,13 @@ class TekEventController {
 
     def create() {
         respond new TekEvent(params)
+    }
+
+    RevisionService revisionService
+
+    def revisions(){
+        def revisionList = revisionService.revisions(TekEvent.class,params.getLong("id"))
+        [revisionList: revisionList]
     }
 
     @Transactional

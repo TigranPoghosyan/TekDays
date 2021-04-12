@@ -1,6 +1,9 @@
 package com.tekdays
 
 import groovy.util.logging.Slf4j
+import org.hibernate.SessionFactory
+import org.hibernate.envers.AuditReaderFactory
+import org.hibernate.envers.query.AuditQuery
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 
@@ -10,6 +13,8 @@ import grails.transaction.Transactional
 
 @Transactional(readOnly = true)
 class SponsorController {
+
+    SessionFactory sessionFactory
 
     public static final Logger LOGGER = LoggerFactory.getLogger(SponsorController.class)
 
@@ -29,6 +34,19 @@ class SponsorController {
         respond new Sponsor(params)
     }
 
+//    def revisions(){
+//        def auditQueryCreator = AuditReaderFactory.get(sessionFactory.currentSession).createQuery()
+//        def revisionList = []
+//        AuditQuery query = auditQueryCreator.forRevisionsOfEntity(Sponsor.class, false, true)
+//        query.resultList.each {
+//            if(it[0].id==params.getLong('id')) {
+//                revisionList.add(it)
+//            }
+//        }
+//        [revisionList: revisionList]
+//    }
+//
+//
     @Transactional
     def save(Sponsor sponsorInstance) {
         if (sponsorInstance == null) {
