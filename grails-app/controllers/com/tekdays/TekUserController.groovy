@@ -1,10 +1,10 @@
 package com.tekdays
 
+import grails.transaction.Transactional
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 
 import static org.springframework.http.HttpStatus.*
-import grails.transaction.Transactional
 
 @Transactional(readOnly = true)
 class TekUserController {
@@ -42,13 +42,6 @@ class TekUserController {
 
     def create() {
         respond new TekUser(params)
-    }
-
-    RevisionService revisionService
-
-    def revisions(){
-        def revisionList = revisionService.revisions(TekUser.class,params.getLong("id"))
-        [revisionList: revisionList]
     }
 
     @Transactional

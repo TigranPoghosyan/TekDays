@@ -90,7 +90,8 @@ class TekDaysTagLib {
     }
 
     def showRevisions = {attrs ->
-        def revisionList = attrs.revisionList
+        def revisionList = attrs.revisoinList
+        List keySet = new ArrayList(revisionList[0][0].properties.keySet())
         if (revisionList) {
             out << """
         <table>
@@ -99,9 +100,9 @@ class TekDaysTagLib {
                 <th>RevId</th>
                 <th>RevType</th>
                """
-            revisionList[0][0].properties.each {
-                if (it?.key in attrs.showList) {
-                    out << "<th>${it?.key}</th>"
+            keySet.each { k ->
+                if (k in attrs.showList) {
+                    out << "<th>${k}</th>"
                 }
             }
             out << """
@@ -117,9 +118,9 @@ class TekDaysTagLib {
                 <td>${it[1]?.id}</td>
                 <td>${it[2]}</td>
                 """
-                it[0].properties.each {
-                    if (it?.key in attrs.showList) {
-                        out << "<td>${it?.value}</td>"
+                keySet.each { k ->
+                    if (k in attrs.showList) {
+                        out << "<td>${it[0].properties."${k}"}</td>"
                     }
                 }
                 out << """

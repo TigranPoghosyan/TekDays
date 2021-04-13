@@ -33,7 +33,8 @@
 						<g:sortableColumn property="description" title="${message(code: 'sponsorShip.description.label', default: 'Description')}" />
 					
 						<g:sortableColumn property="notes" title="${message(code: 'sponsorShip.notes.label', default: 'Notes')}" />
-					
+
+						<th>Get Revisions</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -49,7 +50,11 @@
 						<td>${fieldValue(bean: sponsorShipInstance, field: "description")}</td>
 					
 						<td>${fieldValue(bean: sponsorShipInstance, field: "notes")}</td>
-					
+
+						<td><g:link controller="revisions" action="revisionSelect"
+									params="[type: sponsorshipInstance.getClass().name]"
+									id="${sponsorshipInstance?.id}">${sponsorshipInstance?.id}</g:link></td>
+
 					</tr>
 				</g:each>
 				</tbody>

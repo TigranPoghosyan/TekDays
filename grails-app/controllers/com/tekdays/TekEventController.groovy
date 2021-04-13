@@ -1,12 +1,8 @@
 package com.tekdays
 
-import org.hibernate.SessionFactory
-import org.hibernate.envers.AuditReaderFactory
-import org.hibernate.envers.query.AuditQuery
-import org.springframework.beans.factory.annotation.Autowired
+import grails.transaction.Transactional
 
 import static org.springframework.http.HttpStatus.*
-import grails.transaction.Transactional
 
 @Transactional(readOnly = true)
 class TekEventController {
@@ -144,13 +140,6 @@ class TekEventController {
         event.addToVolunteers(session.user)
         event.save(flush: true)
         render "Thank you for Volunteering"
-    }
-
-    RevisionService revisionService
-
-    def revision() {
-        def revisionList = revisionService.revisions(TekEvent.class, params.getLong('id'))
-        [revisionList: revisionList, showList: params.showList]
     }
 
     def revisionSelect() {
