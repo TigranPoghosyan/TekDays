@@ -75,11 +75,11 @@ class TekDaysTagLib {
         }
     }
 
-    def volunteerButton = {attrs ->
-        if (request.getSession(false) && session.user){
+    def volunteerButton = { attrs ->
+        if (request.getSession(false) && session.user) {
             def user = session.user.merge()
             def event = TekEvent.get(attrs.eventId as Serializable)
-            if (event && !event.volunteers.contains(user)){
+            if (event && !event.volunteers.contains(user)) {
                 out << "<span id='volunteerSpan' class='menuButton'>"
                 out << "<button id='volunteerButton' type='button'>"
                 out << "Volunteer For This Event"
@@ -89,4 +89,51 @@ class TekDaysTagLib {
         }
     }
 
+    def showRevisions = {attrs ->
+        def revisionList = attrs.revisoinList
+        List keySet = new ArrayList(revisionList[0][0].properties.keySet())
+        if (revisionList) {
+            out << """
+        <table>
+        <thead>
+            <tr>
+                <th>RevId</th>
+                <th>RevType</th>
+               """
+            keySet.each { k ->
+                if (k in attrs.showList) {
+                    out << "<th>${k}</th>"
+                }
+            }
+            out << """
+                <th>ChangedDate</th>
+                <th>User</th>
+            </tr>
+        </thead>
+        """
+            out << "<tbody>"
+            revisionList.each {
+                out << """
+                <tr>
+                <td>${it[1]?.id}</td>
+                <td>${it[2]}</td>
+                """
+                keySet.each { k ->
+                    if (k in attrs.showList) {
+                        out << "<td>${it[0].properties."${k}"}</td>"
+                    }
+                }
+                out << """
+                        <td>${UserRevisionEntity.read(it[1]?.id)?.revisionDate?.format('yyyy-MM-dd HH:mm')}</td>
+                        <td>${UserRevisionEntity.read(it[1]?.id)?.currentUser}</td>
+                    </tr>
+                
+            """
+            }
+            out << """ </tbody>
+                    </table>"""
+        } else {
+            out << "<h1> No Revisions for this entity!!! </h1>"
+        }
+    }
 }

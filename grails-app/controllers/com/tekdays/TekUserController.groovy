@@ -1,10 +1,10 @@
 package com.tekdays
 
+import grails.transaction.Transactional
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 
 import static org.springframework.http.HttpStatus.*
-import grails.transaction.Transactional
 
 @Transactional(readOnly = true)
 class TekUserController {
@@ -18,8 +18,26 @@ class TekUserController {
         respond TekUser.list(params), model: [tekUserInstanceCount: TekUser.count()]
     }
 
-    def show(TekUser tekUserInstance) {
-        respond tekUserInstance
+
+    def show(Long id) {
+        def tekUserInstance
+        if(params.userName){
+            tekUserInstance = TekUser.findByUserName(params.userName)
+        }
+        else {
+            tekUserInstance = TekUser.get(id)
+        }
+        if (!tekUserInstance) {
+            if(params.userName){
+                flash.message = "TekUser not found with userName ${params.userName}"
+            }
+            else {
+                flash.message = "TekUser not found with id $id"
+            }
+            redirect(action: "index")
+            return
+        }
+        [tekUserInstance: tekUserInstance]
     }
 
     def create() {

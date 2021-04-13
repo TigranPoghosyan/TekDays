@@ -1,24 +1,39 @@
 package com.tekdays
 
-import org.slf4j.Logger
-import org.slf4j.LoggerFactory
+import grails.transaction.Transactional
 
 import static org.springframework.http.HttpStatus.*
-import grails.transaction.Transactional
 
 @Transactional(readOnly = true)
 class TekEventController {
 
     def taskService
-    static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
+    static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE", revision: "PUT"]
 
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
         respond TekEvent.list(params), model:[tekEventInstanceCount: TekEvent.count()]
     }
 
-    def show(TekEvent tekEventInstance) {
-        respond tekEventInstance
+    def show(Long id) {
+        def tekEventInstance
+        if(params.nickname){
+            tekEventInstance = TekEvent.findByNickname(params.nickname)
+        }
+        else {
+            tekEventInstance = TekEvent.get(id)
+        }
+        if (!tekEventInstance) {
+            if(params.nickname){
+                flash.message = "TekEvent not found with nickname ${params.nickname}"
+            }
+            else {
+                flash.message = "TekEvent not found with id $id"
+            }
+            redirect(action: "index")
+            return
+        }
+        [tekEventInstance: tekEventInstance]
     }
 
     def create() {
@@ -125,6 +140,10 @@ class TekEventController {
         event.addToVolunteers(session.user)
         event.save(flush: true)
         render "Thank you for Volunteering"
+    }
+
+    def revisionSelect() {
+        [instance: TekEvent.get(params.id)]
     }
 
 }

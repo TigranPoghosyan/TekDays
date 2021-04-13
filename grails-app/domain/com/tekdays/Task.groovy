@@ -1,4 +1,8 @@
 package com.tekdays
+
+import org.hibernate.envers.Audited
+
+@Audited
 class Task {
 
     String title
@@ -16,4 +20,10 @@ class Task {
         completed nullable: true
     }
     static belongsTo = TekEvent
+
+    static mapping = {
+        event lazy: false
+        assignedTo lazy: false
+    }
+
 }

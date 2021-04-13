@@ -1,5 +1,8 @@
 package com.tekdays
 
+import org.hibernate.envers.Audited
+
+@Audited
 class TekEvent {
 
     String city
@@ -9,6 +12,7 @@ class TekEvent {
     Date startDate
     Date endDate
     String description
+    String nickname
 
     static searchable = true
     static hasMany = [volunteers  : TekUser,
@@ -31,6 +35,7 @@ class TekEvent {
         sponsorships nullable: true
         tasks nullable: true
         messages nullable: true
+        nickname nullable: true, unique: true
     }
 
 
@@ -38,8 +43,7 @@ class TekEvent {
         tasks cascade: 'all-delete-orphan'
         messages cascade: 'all-delete-orphan'
         sponsorships cascade: 'all-delete-orphan'
-
-
+        organizer lazy: false
     }
 
     @Override
