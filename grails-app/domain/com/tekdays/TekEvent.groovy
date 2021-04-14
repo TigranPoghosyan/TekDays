@@ -36,6 +36,8 @@ class TekEvent {
         tasks nullable: true
         messages nullable: true
         nickname nullable: true, unique: true
+        organizer lazy: false
+        volunteers lazy: false
     }
 
 

@@ -10,7 +10,7 @@ class SponsorShipController {
 
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
-        respond SponsorShip.list(params), model:[sponsorShipInstanceCount: SponsorShip.count()]
+        respond SponsorShip.list(params), model: [sponsorShipInstanceCount: SponsorShip.count()]
     }
 
     def show(SponsorShip sponsorShipInstance) {
@@ -29,11 +29,11 @@ class SponsorShipController {
         }
 
         if (sponsorShipInstance.hasErrors()) {
-            respond sponsorShipInstance.errors, view:'create'
+            respond sponsorShipInstance.errors, view: 'create'
             return
         }
 
-        sponsorShipInstance.save flush:true
+        sponsorShipInstance.save flush: true
 
         request.withFormat {
             form multipartForm {
@@ -56,18 +56,18 @@ class SponsorShipController {
         }
 
         if (sponsorShipInstance.hasErrors()) {
-            respond sponsorShipInstance.errors, view:'edit'
+            respond sponsorShipInstance.errors, view: 'edit'
             return
         }
 
-        sponsorShipInstance.save flush:true
+        sponsorShipInstance.save flush: true
 
         request.withFormat {
             form multipartForm {
                 flash.message = message(code: 'default.updated.message', args: [message(code: 'SponsorShip.label', default: 'SponsorShip'), sponsorShipInstance.id])
                 redirect sponsorShipInstance
             }
-            '*'{ respond sponsorShipInstance, [status: OK] }
+            '*' { respond sponsorShipInstance, [status: OK] }
         }
     }
 
@@ -79,14 +79,14 @@ class SponsorShipController {
             return
         }
 
-        sponsorShipInstance.delete flush:true
+        sponsorShipInstance.delete flush: true
 
         request.withFormat {
             form multipartForm {
                 flash.message = message(code: 'default.deleted.message', args: [message(code: 'SponsorShip.label', default: 'SponsorShip'), sponsorShipInstance.id])
-                redirect action:"index", method:"GET"
+                redirect action: "index", method: "GET"
             }
-            '*'{ render status: NO_CONTENT }
+            '*' { render status: NO_CONTENT }
         }
     }
 
@@ -96,7 +96,7 @@ class SponsorShipController {
                 flash.message = message(code: 'default.not.found.message', args: [message(code: 'sponsorShip.label', default: 'SponsorShip'), params.id])
                 redirect action: "index", method: "GET"
             }
-            '*'{ render status: NOT_FOUND }
+            '*' { render status: NOT_FOUND }
         }
     }
 }

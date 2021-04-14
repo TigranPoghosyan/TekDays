@@ -18,4 +18,16 @@ class RevisionsController {
             [instance: instance]
         }
     }
+
+    def revisionButton(){
+        if (!params.type) {
+            redirect(uri: "/")
+        }else {
+            def cls = Class.forName(params.type)
+            def instance = cls.get(params.id)
+
+            def revisionList1 = revisionService.getRevisionResults(Class.forName(params.type), params.getLong('id'))
+            [revisionList: revisionList1, showList: params.showList]
+        }
+    }
 }

@@ -1,15 +1,11 @@
 package com.tekdays
 
-import groovy.util.logging.Slf4j
+import grails.transaction.Transactional
 import org.hibernate.SessionFactory
-import org.hibernate.envers.AuditReaderFactory
-import org.hibernate.envers.query.AuditQuery
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 
-
 import static org.springframework.http.HttpStatus.*
-import grails.transaction.Transactional
 
 @Transactional(readOnly = true)
 class SponsorController {
@@ -22,11 +18,11 @@ class SponsorController {
 
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
-        respond Sponsor.list(params), model:[sponsorInstanceCount: Sponsor.count()]
+        respond Sponsor.list(params), model: [sponsorInstanceCount: Sponsor.count()]
     }
 
     def show(Sponsor sponsorInstance) {
-        LOGGER.info('Trying showing instance with id: {}',sponsorInstance?.id)
+        LOGGER.info('Trying showing instance with id: {}', sponsorInstance?.id)
         respond sponsorInstance
     }
 
@@ -55,11 +51,11 @@ class SponsorController {
         }
 
         if (sponsorInstance.hasErrors()) {
-            respond sponsorInstance.errors, view:'create'
+            respond sponsorInstance.errors, view: 'create'
             return
         }
 
-        sponsorInstance.save flush:true
+        sponsorInstance.save flush: true
 
         request.withFormat {
             form multipartForm {
@@ -82,18 +78,18 @@ class SponsorController {
         }
 
         if (sponsorInstance.hasErrors()) {
-            respond sponsorInstance.errors, view:'edit'
+            respond sponsorInstance.errors, view: 'edit'
             return
         }
 
-        sponsorInstance.save flush:true
+        sponsorInstance.save flush: true
 
         request.withFormat {
             form multipartForm {
                 flash.message = message(code: 'default.updated.message', args: [message(code: 'Sponsor.label', default: 'Sponsor'), sponsorInstance.id])
                 redirect sponsorInstance
             }
-            '*'{ respond sponsorInstance, [status: OK] }
+            '*' { respond sponsorInstance, [status: OK] }
         }
     }
 
@@ -105,14 +101,14 @@ class SponsorController {
             return
         }
 
-        sponsorInstance.delete flush:true
+        sponsorInstance.delete flush: true
 
         request.withFormat {
             form multipartForm {
                 flash.message = message(code: 'default.deleted.message', args: [message(code: 'Sponsor.label', default: 'Sponsor'), sponsorInstance.id])
-                redirect action:"index", method:"GET"
+                redirect action: "index", method: "GET"
             }
-            '*'{ render status: NO_CONTENT }
+            '*' { render status: NO_CONTENT }
         }
     }
 
@@ -122,7 +118,7 @@ class SponsorController {
                 flash.message = message(code: 'default.not.found.message', args: [message(code: 'sponsor.label', default: 'Sponsor'), params.id])
                 redirect action: "index", method: "GET"
             }
-            '*'{ render status: NOT_FOUND }
+            '*' { render status: NOT_FOUND }
         }
     }
 }

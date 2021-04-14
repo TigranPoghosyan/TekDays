@@ -7,6 +7,8 @@ import static org.springframework.http.HttpStatus.*
 @Transactional(readOnly = true)
 class TekEventController {
 
+    def dataTablesSourceService
+
     def taskService
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE", revision: "PUT"]
 
@@ -35,6 +37,17 @@ class TekEventController {
         }
         [tekEventInstance: tekEventInstance]
     }
+
+    def dtList() {} //avtomat stexcume dtList.gsp vor@ irakanum chka)))
+
+    def dataTablesRenderer() {
+        def propertiesToRender = ["name","city","id"] // petq e nkarenq ays dashter@
+        def entityName = "TekEvent" //classi anun@
+
+        render dataTablesSourceService.dataTablesSource(propertiesToRender, entityName, params) //table@ kstana ir spaseliq Json@ ays hramanic heto
+
+    }
+
 
     def create() {
         respond new TekEvent(params)

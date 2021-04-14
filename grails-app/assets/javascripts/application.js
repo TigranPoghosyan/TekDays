@@ -9,6 +9,7 @@
 //= require jquery-ui
 //= require_tree .
 //= require_self
+//= require jquery.dataTables
 
 if (typeof jQuery !== 'undefined') {
 	(function($) {

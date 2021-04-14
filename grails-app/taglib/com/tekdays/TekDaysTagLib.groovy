@@ -89,7 +89,7 @@ class TekDaysTagLib {
         }
     }
 
-    def showRevisions = {attrs ->
+    def showRevisions = { attrs ->
         def revisionList = attrs.revisoinList
         List keySet = new ArrayList(revisionList[0][0].properties.keySet())
         if (revisionList) {
@@ -97,9 +97,10 @@ class TekDaysTagLib {
         <table>
         <thead>
             <tr>
+                <th>Checkbox</th>
                 <th>RevId</th>
                 <th>RevType</th>
-               """
+            """
             keySet.each { k ->
                 if (k in attrs.showList) {
                     out << "<th>${k}</th>"
@@ -113,11 +114,14 @@ class TekDaysTagLib {
         """
             out << "<tbody>"
             revisionList.each {
-                out << """
-                <tr>
-                <td>${it[1]?.id}</td>
-                <td>${it[2]}</td>
-                """
+
+                out << "<tr>"
+                out << "<td>"
+                out << checkBox(name: "myCheckbox", id: "myCheckbox")
+                out << "</td>"
+                out << "<td>${it[1]?.id}</td>"
+                out << "<td>${it[2]}</td>"
+
                 keySet.each { k ->
                     if (k in attrs.showList) {
                         out << "<td>${it[0].properties."${k}"}</td>"
@@ -126,8 +130,8 @@ class TekDaysTagLib {
                 out << """
                         <td>${UserRevisionEntity.read(it[1]?.id)?.revisionDate?.format('yyyy-MM-dd HH:mm')}</td>
                         <td>${UserRevisionEntity.read(it[1]?.id)?.currentUser}</td>
+
                     </tr>
-                
             """
             }
             out << """ </tbody>

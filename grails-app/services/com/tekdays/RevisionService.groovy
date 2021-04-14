@@ -24,4 +24,19 @@ SessionFactory sessionFactory
         return revisionList
     }
 
+//    def getRevisionResults(Class<?> className, Long id, List<Long> revId) {
+//        def revisionList = []
+//        AuditReaderFactory
+//                .get(sessionFactory.currentSession)
+//                .createQuery()
+//                .forRevisionsOfEntity(className, false, true)
+//                .resultList
+//                .each {
+//                    if (it[0].id == id && it[1].id in revId) {
+//                        revisionList << it
+//                    }
+//                }
+//        return revisionList
+//    }
+
 }
