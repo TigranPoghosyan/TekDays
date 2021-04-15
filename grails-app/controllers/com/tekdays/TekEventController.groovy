@@ -12,24 +12,21 @@ class TekEventController {
     def taskService
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE", revision: "PUT"]
 
-    def index(Integer max) {
-        params.max = Math.min(max ?: 10, 100)
-        respond TekEvent.list(params), model:[tekEventInstanceCount: TekEvent.count()]
+    def index() {
+        [properties: ["name", "city", "organizer", "venue", "startDate", "endDate", "description", "id","Get Revision"]]
     }
 
     def show(Long id) {
         def tekEventInstance
-        if(params.nickname){
+        if (params.nickname) {
             tekEventInstance = TekEvent.findByNickname(params.nickname)
-        }
-        else {
+        } else {
             tekEventInstance = TekEvent.get(id)
         }
         if (!tekEventInstance) {
-            if(params.nickname){
+            if (params.nickname) {
                 flash.message = "TekEvent not found with nickname ${params.nickname}"
-            }
-            else {
+            } else {
                 flash.message = "TekEvent not found with id $id"
             }
             redirect(action: "index")
@@ -41,10 +38,11 @@ class TekEventController {
     def dtList() {} //avtomat stexcume dtList.gsp vor@ irakanum chka)))
 
     def dataTablesRenderer() {
-        def propertiesToRender = ["name","city","id"] // petq e nkarenq ays dashter@
-        def entityName = "TekEvent" //classi anun@
-
-        render dataTablesSourceService.dataTablesSource(propertiesToRender, entityName, params) //table@ kstana ir spaseliq Json@ ays hramanic heto
+        def propertiesToRender = ["name", "city", "organizer", "venue", "startDate", "endDate", "description", "id","id"]
+        // petq e nkarenq ays dashter@
+        def entityName = TekEvent.class.simpleName //classi anun@
+        render dataTablesSourceService.dataTablesSource(propertiesToRender, entityName, params)
+        //table@ kstana ir spaseliq Json@ ays hramanic heto
 
     }
 
@@ -61,11 +59,11 @@ class TekEventController {
         }
 
         if (tekEventInstance.hasErrors()) {
-            respond tekEventInstance.errors, view:'create'
+            respond tekEventInstance.errors, view: 'create'
             return
         }
 
-        tekEventInstance.save flush:true
+        tekEventInstance.save flush: true
         taskService.addDefaultTasks(tekEventInstance)
 
         request.withFormat {
@@ -78,8 +76,8 @@ class TekEventController {
     }
 
     def edit(TekEvent tekEventInstance) {
-        if (tekEventInstance?.organizer?.id != session.user.id){
-            redirect(controller: 'tekEvent',action: 'show',id: tekEventInstance.id)
+        if (tekEventInstance?.organizer?.id != session.user.id) {
+            redirect(controller: 'tekEvent', action: 'show', id: tekEventInstance.id)
         }
         respond tekEventInstance
     }
@@ -92,18 +90,18 @@ class TekEventController {
         }
 
         if (tekEventInstance.hasErrors()) {
-            respond tekEventInstance.errors, view:'edit'
+            respond tekEventInstance.errors, view: 'edit'
             return
         }
 
-        tekEventInstance.save flush:true
+        tekEventInstance.save flush: true
 
         request.withFormat {
             form multipartForm {
                 flash.message = message(code: 'default.updated.message', args: [message(code: 'TekEvent.label', default: 'TekEvent'), tekEventInstance.id])
                 redirect tekEventInstance
             }
-            '*'{ respond tekEventInstance, [status: OK] }
+            '*' { respond tekEventInstance, [status: OK] }
         }
     }
 
@@ -116,20 +114,19 @@ class TekEventController {
         }
         //Comment for merge
         //another comment
-        if (tekEventInstance?.organizer?.id != session.user.id){
-            redirect(controller: 'tekEvent',action: 'show',id: tekEventInstance.id)
+        if (tekEventInstance?.organizer?.id != session.user.id) {
+            redirect(controller: 'tekEvent', action: 'show', id: tekEventInstance.id)
             return
         }
-            tekEventInstance.delete flush:true
-
+        tekEventInstance.delete flush: true
 
 
         request.withFormat {
             form multipartForm {
                 flash.message = message(code: 'default.deleted.message', args: [message(code: 'TekEvent.label', default: 'TekEvent'), tekEventInstance.id])
-                redirect action:"index", method:"GET"
+                redirect action: "index", method: "GET"
             }
-            '*'{ render status: NO_CONTENT }
+            '*' { render status: NO_CONTENT }
         }
     }
 
@@ -139,12 +136,12 @@ class TekEventController {
                 flash.message = message(code: 'default.not.found.message', args: [message(code: 'tekEvent.label', default: 'TekEvent'), params.id])
                 redirect action: "index", method: "GET"
             }
-            '*'{ render status: NOT_FOUND }
+            '*' { render status: NOT_FOUND }
         }
     }
 
     def search = {
-        if (params.query){
+        if (params.query) {
             def events = TekEvent.search(params.query).results
         }
     }

@@ -5,6 +5,49 @@
     <meta name="layout" content="main">
     <g:set var="entityName" value="${message(code: 'tekEvent.label', default: 'TekEvent')}"/>
     <title><g:message code="default.list.label" args="[entityName]"/></title>
+    <g:javascript>
+        $(document).ready(function () {
+            $('#dt').DataTable({
+                sScrollY: "75%",
+                sScrollX: "100%",
+                bProcessing: true,
+                bServerSide: true,
+                sAjaxSource: "/TekDays/tekEvent/dataTablesRenderer",
+                bJQueryUI: false,
+                bAutoWidth: false,
+                sPaginationType: "full_numbers",
+                aLengthMenu: [[10, 25, 50, 100, 200], [10, 25, 50, 100, 200]],
+                iDisplayLength: 10,
+                bSortable: true,
+                aoColumnDefs: [
+
+                    {
+                        bSearchable: false, aTargets: [0]
+                    },
+                    {bSortable: false},
+                    {createdCell: function (td, cellData, rowData, row, col) {
+                            $(td).attr('style', 'text-align: center;');
+                        },
+                        render: function (data, type, full, meta) {
+                            if (data) {
+                                return '<a href="/TekDays/tekEvent/edit/' + data + '" class="btn">Edit</a>';
+                            } else {
+                                return "";
+                            }
+                        },
+                        aTargets: [7]},
+                    {render: function (data, type, full, meta) {
+                            if (data) {
+                                return '<a href="/TekDays/revisions/revisionSelect/' + data + '?type=com.tekdays.TekEvent" class="btn">Revisions</a>';
+                            } else {
+                                return "";
+                            }
+                        },
+                        aTargets: [9]}
+                ]
+            });
+        });
+    </g:javascript>
 </head>
 
 <body>
@@ -13,69 +56,47 @@
 
 <div class="nav" role="navigation">
     <ul>
+
         <li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
         <li><g:link class="create" action="create"><g:message code="default.new.label"
                                                               args="[entityName]"/></g:link></li>
     </ul>
+
+
 </div>
 
 <div id="list-tekEvent" class="content scaffold-list" role="main">
     <h1><g:message code="default.list.label" args="[entityName]"/></h1>
+
+
     <g:if test="${flash.message}">
         <div class="message" role="status">${flash.message}</div>
     </g:if>
-    <table>
+
+    <g:jasperReport  jasper="TekEventList" format="XLS,PDF,HTML" description="TekEventList" name="TekEventList">
+    </g:jasperReport>
+
+    <table class="display compact" id="dt">
         <thead>
         <tr>
-            <g:sortableColumn property="name"
-                              title="${message(code: 'tekEvent.name.label',
-                                      default: 'Name')}"/>
-            <g:sortableColumn property="city"
-                              title="${message(code: 'tekEvent.city.label',
-                                      default: 'City')}"/>
-            <g:sortableColumn property="description"
-                              title="${message(code: 'tekEvent.description.label',
-                                      default: 'Description')}"/>
-            <g:sortableColumn property="venue"
-                              title="${message(code: 'tekEvent.venue.label',
-                                      default: 'Venue')}"/>
-            <g:sortableColumn property="startDate"
-                              title="${message(code: 'tekEvent.startDate.label',
-                                      default: 'Start Date')}"/>
-            <th>Get Rev</th>
+            <g:each in="${properties}" var="prop">
+                <th>${prop}</th>
+            </g:each>
+            <td></td>
         </tr>
         </thead>
+
         <tbody>
-        <g:each in="${tekEventInstanceList}" status="i"
-                var="tekEventInstance">
-            <tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
-                <td><g:link action="show"
-                            id="${tekEventInstance.id}">
-                    ${fieldValue(bean: tekEventInstance,
-                            field: "name")}</g:link>
-                </td>
 
-                <td>${fieldValue(bean: tekEventInstance, field: "city")}</td>
-
-                <td>${fieldValue(bean: tekEventInstance, field: "description")}</td>
-
-                <td>${fieldValue(bean: tekEventInstance,field: "venue")}</td>
-
-                <td><g:formatDate date="${tekEventInstance.startDate}"/></td>
-
-                <td><g:link controller="revisions" action="revisionSelect"
-                            params="[type: tekEventInstance.getClass().name]"
-                            id="${tekEventInstance.id}">${tekEventInstance.id}</g:link></td>
-
-            </tr>
-
-        </g:each>
         </tbody>
-    </table>
 
-    <div class="pagination">
-        <g:paginate total="${tekEventInstanceCount ?: 0}"/>
-    </div>
-</div>
+        <tfoot>
+        <tr>
+            <g:each in="${properties}" var="prop">
+                <th>${prop}</th>
+            </g:each>
+        </tr>
+        </tfoot>
+    </table>
 </body>
 </html>

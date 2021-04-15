@@ -54,7 +54,9 @@
                         });
                         });
 </g:javascript>
+
   </head>
+
 <body>
 <table class="display compact" id="dt">
     <thead>

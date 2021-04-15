@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="TekEventList" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="070ac3d1-dd95-4ff3-b951-d321bdc9dfe4">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[select *  from tek_event]]>
+	</queryString>
+	<field name="id" class="java.lang.Long">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="version" class="java.lang.Long">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="city" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="description" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="end_date" class="java.sql.Timestamp">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="name" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="organizer_id" class="java.lang.Long">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="start_date" class="java.sql.Timestamp">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="venue" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nickname" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="50"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="20" splitType="Stretch">
+			<staticText>
+				<reportElement x="300" y="0" width="502" height="20" uuid="0e0a4eb7-cfb7-4376-b62d-3bfe60bc7818"/>
+				<text><![CDATA[description]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="200" y="0" width="100" height="20" uuid="5a66736c-a083-423c-8d1e-c8d426c43ebb"/>
+				<text><![CDATA[city]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="465" y="0" width="100" height="20" uuid="3c8f926a-68d7-4cf2-89a9-a720374f8282"/>
+				<text><![CDATA[start_date]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="593" y="0" width="100" height="20" uuid="73246c74-9516-45d0-a853-d3299d61a04b"/>
+				<text><![CDATA[venue]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="0" width="100" height="20" uuid="891ba778-bf35-4a23-a785-73a98e63ffbb"/>
+				<text><![CDATA[id]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="100" y="0" width="100" height="20" uuid="046a9bc0-e46a-415e-8e93-7bdfa63ec83f"/>
+				<text><![CDATA[version]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="161" splitType="Stretch">
+			<textField>
+				<reportElement x="100" y="0" width="100" height="22" uuid="1172cb37-70bd-4354-8e42-47204bbefe84"/>
+				<textFieldExpression><![CDATA[$F{version}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="300" y="0" width="165" height="20" uuid="35d9273b-d0b7-4532-9f8b-6642fe6c71d7"/>
+				<textElement>
+					<font fontName="Arian AMU" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{description}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="200" y="0" width="100" height="20" uuid="3c309279-02fb-42a1-b6b2-c92c7d20b9c3"/>
+				<textFieldExpression><![CDATA[$F{city}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="467" y="0" width="100" height="20" uuid="9d2cb307-a5b0-412b-bb54-4feea6cc9de0"/>
+				<textFieldExpression><![CDATA[$F{start_date}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="593" y="0" width="100" height="20" uuid="0983ed7b-0bbc-4abc-88c4-45bd8a2e7aeb"/>
+				<textFieldExpression><![CDATA[$F{venue}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="0" width="100" height="22" uuid="38dda014-cbb1-40b6-acc9-a30af09db0c8"/>
+				<textFieldExpression><![CDATA[$F{id}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="58" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

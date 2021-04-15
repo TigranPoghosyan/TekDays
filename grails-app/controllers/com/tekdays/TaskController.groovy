@@ -9,12 +9,22 @@ import static org.springframework.http.HttpStatus.*
 @Transactional(readOnly = true)
 class TaskController {
 
+    def dataTablesSourceService
+
     public static final Logger LOGGER = LoggerFactory.getLogger(TaskController.class)
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
-    def index(Integer max) {
-        params.max = Math.min(max ?: 10, 100)
-        respond Task.list(params), model:[taskInstanceCount: Task.count()]
+    def index() {
+        [properties: ["title", "notes", "assignedTo", "dueDate", "event", "completed"]]
+    }
+
+    def dtList() {} //avtomat stexcume dtList.gsp vor@ irakanum chka)))
+
+    def dataTablesRenderer() {
+        def propertiesToRender = ["title", "notes", "assignedTo", "dueDate", "event", "completed"]
+        def entityName = Task.class.simpleName //classi anun@
+        render dataTablesSourceService.dataTablesSource(propertiesToRender, entityName, params)
+
     }
 
     def show(Task taskInstance) {

@@ -16,7 +16,7 @@ class DataTablesSourceService implements GrailsApplicationAware {
         // gnumenq ira klass@ vercnenq
 
         def filters = [] //massiv enq stexcum
-        propertiesToRender.eachWithIndex { prop, idx -> //qaylumenq indexi vrayov inch hertaknautyamb nkarelenq tenca nkarvum...
+        propertiesToRender.eachWithIndex { prop, idx -> //qaylumenq indexi vr-ayov inch hertaknautyamb nkarelenq tenca nkarvum...
             // eachWithIndex@ov karanq ev property tanq ev index
             def sSearchField = params["sSearch_${idx}"] //paramsic kardum enq sSearch index@ @st ir indexi gtnum e
             if (sSearchField != '') { //ete datark e uremn chka vochinch

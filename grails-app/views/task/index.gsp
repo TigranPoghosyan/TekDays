@@ -5,6 +5,44 @@
     <meta name="layout" content="main">
     <g:set var="entityName" value="${message(code: 'task.label', default: 'Task')}"/>
     <title><g:message code="default.list.label" args="[entityName]"/></title>
+    <g:javascript>
+        $(document).ready(function () {
+            $('#dt').DataTable({
+                sScrollY: "75%",
+                sScrollX: "100%",
+                bProcessing: true,
+                bServerSide: true,
+                sAjaxSource: "/TekDays/tekEvent/dataTablesRenderer",
+                bJQueryUI: false,
+                bAutoWidth: false,
+                sPaginationType: "full_numbers",
+                aLengthMenu: [[10, 25, 50, 100, 200], [10, 25, 50, 100, 200]],
+                iDisplayLength: 10,
+                bSortable: true,
+                aoColumnDefs: [
+                    {
+                        bSearchable: false,
+                        aTargets: [0]
+                    },
+                    {
+                        bSortable: false,
+                    },
+                    {
+                        createdCell: function (td, cellData, rowData, row, col) {
+                            $(td).attr('style', 'text-align: center;');
+                        },
+                        render: function (data, type, full, meta) {
+                            if (data) {
+                                return '<a href="/TekDays/tekEvent/edit/' + data + '" class="btn">Edit</a>';
+                            } else {
+                                return "";
+                            }
+                        },
+                        aTargets: [8]
+                    }]
+            });
+        });
+    </g:javascript>
 </head>
 
 <body>
@@ -24,51 +62,27 @@
     <g:if test="${flash.message}">
         <div class="message" role="status">${flash.message}</div>
     </g:if>
-    <table>
+
+    <table class="display compact" id="dt">
         <thead>
         <tr>
-
-            <g:sortableColumn property="title" title="${message(code: 'task.title.label', default: 'Title')}"/>
-
-            <g:sortableColumn property="notes" title="${message(code: 'task.notes.label', default: 'Notes')}"/>
-
-            <th><g:message code="task.assignedTo.label" default="Assigned To"/></th>
-
-            <g:sortableColumn property="dueDate" title="${message(code: 'task.dueDate.label', default: 'Due Date')}"/>
-
-            <th><g:message code="task.event.label" default="Event"/></th>
-
-            <th>Get Rev</th>
-
+            <g:each in="${properties}" var="prop">
+                <th>${prop}</th>
+            </g:each>
         </tr>
         </thead>
-        <tbody>
-        <g:each in="${taskInstanceList}" status="i" var="taskInstance">
-            <tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
 
-                <td><g:link action="show"
-                            id="${taskInstance.id}">${fieldValue(bean: taskInstance, field: "title")}</g:link></td>
+        <tbody></tbody>
 
-                <td>${fieldValue(bean: taskInstance, field: "notes")}</td>
-
-                <td>${fieldValue(bean: taskInstance, field: "assignedTo")}</td>
-
-                <td><g:formatDate date="${taskInstance.dueDate}"/></td>
-
-                <td>${fieldValue(bean: taskInstance, field: "event")}</td>
-
-                <td><g:link controller="revisions" action="revisionSelect"
-                            params="[type: taskInstance.getClass().name]"
-                            id="${taskInstance?.id}">${taskInstance?.id}</g:link></td>
-
-            </tr>
-        </g:each>
-        </tbody>
+        <tfoot>
+        <tr>
+            <g:each in="${properties}" var="prop">
+                <th>${prop}</th>
+            </g:each>
+        </tr>
+        </tfoot>
     </table>
 
-    <div class="pagination">
-        <g:paginate total="${taskInstanceCount ?: 0}"/>
-    </div>
 </div>
 </body>
 </html>
