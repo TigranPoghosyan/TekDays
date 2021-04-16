@@ -127,3 +127,7 @@ lib/build/
 coverage-error.log
 
 bin/
+
+*.jasper
+/web-app/reports/*.xml
+/web-app/reports/*.pdf

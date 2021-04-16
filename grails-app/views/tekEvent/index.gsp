@@ -43,7 +43,7 @@
                                 return "";
                             }
                         },
-                        aTargets: [9]}
+                        aTargets: [8]}
                 ]
             });
         });
@@ -73,8 +73,7 @@
         <div class="message" role="status">${flash.message}</div>
     </g:if>
 
-    <g:jasperReport  jasper="TekEventList" format="XLS,PDF,HTML" description="TekEventList" name="TekEventList">
-    </g:jasperReport>
+    <g:jasperTagLib entityName="${entityName}"/>
 
     <table class="display compact" id="dt">
         <thead>
@@ -82,7 +81,6 @@
             <g:each in="${properties}" var="prop">
                 <th>${prop}</th>
             </g:each>
-            <td></td>
         </tr>
         </thead>
 

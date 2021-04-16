@@ -38,8 +38,7 @@ class TekEventController {
     def dtList() {} //avtomat stexcume dtList.gsp vor@ irakanum chka)))
 
     def dataTablesRenderer() {
-        def propertiesToRender = ["name", "city", "organizer", "venue", "startDate", "endDate", "description", "id","id"]
-        // petq e nkarenq ays dashter@
+        def propertiesToRender = ["name", "city", "organizer", "venue", "startDate", "endDate", "description", "id","id"] // petq e nkarenq ays dashter@
         def entityName = TekEvent.class.simpleName //classi anun@
         render dataTablesSourceService.dataTablesSource(propertiesToRender, entityName, params)
         //table@ kstana ir spaseliq Json@ ays hramanic heto

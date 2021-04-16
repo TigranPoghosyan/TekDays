@@ -16,10 +16,12 @@
         <g:select name="showList" from="${instance.properties.keySet()}" multiple="multiple" size="10" required=""
                   value="${showList}"/>
     </fieldset>
+
     <fieldset class="buttons">
         <g:actionSubmit class="save" action="revisions"
                         value="Show Revisions"/>
     </fieldset>
+
 </g:form>
 </body>
 </html>
