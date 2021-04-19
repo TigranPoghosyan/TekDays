@@ -1,9 +1,11 @@
-
 <%@ page contentType="text/html;charset=UTF-8" %>
+<!DOCTYPE html>
 <html>
+
 <head>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-    <title>Diff Page</title>
+    <meta name="layout" content="main">
+    <g:set var="entityName" value="${message(code: 'revisions.label', default: 'Differences')}"/>
+    <title><g:message code="default.show.label" args="[entityName]"/></title>
 </head>
 
 <body>
