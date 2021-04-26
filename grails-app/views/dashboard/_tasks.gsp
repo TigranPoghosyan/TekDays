@@ -3,9 +3,9 @@
 <table>
     <thead>
     <tr>
-        <th>Task Title</th>
-        <th>Due Date</th>
-        <th>Assigned To</th>
+        <th><g:message code="dashboard.tasktitle"/></th>
+        <th><g:message code="dashboard.duedate"/></th>
+        <th><g:message code="dashboard.assignedto"/></th>
     </tr>
     </thead>
     <g:each in="${tasks}" var="task">

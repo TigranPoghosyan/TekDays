@@ -16,13 +16,10 @@
 
 <div class="nav" role="navigation">
     <ul>
-        <li><a class="home" href="${createLink(uri: '/')}">Home</a></li>
-        <li><g:link class="create" controller="task" action="create">Create
-          Task</g:link></li>
-        <li><g:link class="create" controller="sponsorship" action="create">Add
-         Sponsor</g:link></li>
-        <li><g:link class="list" controller="sponsor" action="index">All
-         Sponsors</g:link></li>
+        <li><a class="home"href="${createLink(uri: '/')}"><g:message code="dashboard.home1"/></a></li>
+        <li><g:link class="create" controller="task" action="create"> <g:message code="dashboard.task"/></g:link></li>
+        <li><g:link class="create" controller="sponsorship" action="create"> <g:message code="dashboard.sponsor"/></g:link></li>
+        <li><g:link class="list" controller="sponsor" action="index"> <g:message code="dashboard.allsponsors"/></g:link></li>
     </ul>
 </div>
 

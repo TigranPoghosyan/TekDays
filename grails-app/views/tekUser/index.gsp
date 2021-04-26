@@ -24,8 +24,6 @@
 			<thead>
 					<tr>
 
-						<th>Get Rev</th>
-
 						<g:sortableColumn property="fullName" title="${message(code: 'tekUser.fullName.label', default: 'Full Name')}" />
 					
 						<g:sortableColumn property="userName" title="${message(code: 'tekUser.userName.label', default: 'User Name')}" />
@@ -37,6 +35,8 @@
 						<g:sortableColumn property="bio" title="${message(code: 'tekUser.bio.label', default: 'Bio')}" />
 					
 						<g:sortableColumn property="password" title="${message(code: 'tekUser.password.label', default: 'Password')}" />
+
+						<th>Get Rev</th>
 					
 					</tr>
 				</thead>

@@ -3,9 +3,9 @@
 <table>
     <thead>
     <tr>
-        <th>Name</th>
-        <th>Web Site</th>
-        <th>Contribution</th>
+        <th><g:message code="dashboard.name"/></th>
+        <th><g:message code="dashboard.website"/></th>
+        <th><g:message code="dashboard.contribution"/></th>
     </tr>
     </thead>
     <g:each in="${sponsorships}" var="s">

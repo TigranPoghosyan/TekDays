@@ -31,7 +31,7 @@
 
 # "temporary" build files
 /target
-
+/classes
 # IDE support files
 .asscache
 .classpath

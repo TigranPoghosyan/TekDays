@@ -40,7 +40,7 @@ class TekDaysTagLib {
             def events = TekEvent.findAllByOrganizer(session.user)
             if (events) {
                 out << "<div class='homeCell'"
-                out << "<h3>Events you are organizing:&#129321</h3>"
+                out << "<h3> ${message code: 'default.eventorganizing'}</h3>"
                 out << "<ol>"
                 events.each {
                     out << "<li><a href='"
@@ -62,7 +62,7 @@ class TekDaysTagLib {
             }
             if (events) {
                 out << "<div class='homeCell'>"
-                out << "<h3>Events you volunteered for:</h3>"
+                out << "<h3> ${message code: 'default.eventsvolunteered'}</h3>"
                 out << "<ol>"
                 events.each {
                     out << "<li><a href='"

@@ -33,10 +33,9 @@
     <ol class="property-list tekEvent">
 
         <g:if test="${tekEventInstance?.city}">
-            <li class="fieldcontain">
-                <span id="city-label" class="property-label">
-                    Location
-                </span>
+
+                <li class="fieldcontain">
+                <span id="city-label" class="property-label"><g:message code="tekEvent.city.label"/></span>
 
                 <span class="property-value" aria-labelledby="city-label">
                     <g:fieldValue bean="${tekEventInstance}" field="venue"/>,

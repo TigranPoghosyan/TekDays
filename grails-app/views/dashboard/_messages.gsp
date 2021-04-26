@@ -3,9 +3,9 @@
 <table>
     <thead>
     <tr>
-        <th>Author</th>
-        <th>Subject</th>
-        <th>Content</th>
+        <th><g:message code="dashboard.author"/></th>
+        <th><g:message code="dashboard.subject"/></th>
+        <th><g:message code="dashboard.content"/></th>
     </tr>
     </thead>
     <g:each in="${messages}" var="msg">

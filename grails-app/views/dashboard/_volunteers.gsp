@@ -3,9 +3,9 @@
 <table>
     <thead>
     <tr>
-        <th>Name</th>
-        <th>Email Address</th>
-        <th>Web Site</th>
+        <th><g:message code="dashboard.name1"/></th>
+        <th><g:message code="dashboard.email"/></th>
+        <th><g:message code="dashboard.website1"/></th>
     </tr>
     </thead>
     <g:each in="${volunteers}" var="volunteer">
