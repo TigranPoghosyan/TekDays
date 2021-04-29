@@ -1,10 +1,14 @@
 package com.tekdays
 
+import grails.converters.JSON
 import grails.transaction.Transactional
+import groovy.json.JsonBuilder
+import org.springframework.web.bind.annotation.RestController
 
 import static org.springframework.http.HttpStatus.*
 
 @Transactional(readOnly = true)
+@RestController
 class TekEventController {
 
     def dataTablesSourceService
@@ -101,6 +105,22 @@ class TekEventController {
                 redirect tekEventInstance
             }
             '*' { respond tekEventInstance, [status: OK] }
+        }
+    }
+
+    def appData(){
+        def data = TekEvent.get(params.id)
+        if (data){
+           def builder = new JsonBuilder()
+            def root = builder.event{
+                city(data.city)
+                name(data.name)
+            }
+            render root
+        }
+        else {
+            data = TekEvent.list(params.id)
+            render data
         }
     }
 

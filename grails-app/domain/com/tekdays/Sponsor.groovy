@@ -1,13 +1,10 @@
 package com.tekdays
 
-import groovy.util.logging.Slf4j
-import jline.internal.Log
-import org.apache.log4j.LogManager
 import org.hibernate.envers.Audited
-
-import java.util.logging.Logger
+import grails.rest.*
 
 @Audited
+@Resource(uri = '/sponsor',formats = ['json','xml'])
 class Sponsor {
 
 
