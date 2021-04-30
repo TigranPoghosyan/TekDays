@@ -3,9 +3,8 @@ package com.tekdays
 import org.hibernate.envers.Audited
 import grails.rest.*
 
-
+//@Resource(uri = '/tekEvent',formats = ['json','xml'])
 @Audited
-@Resource(uri = '/tekEvent',formats = ['json','xml'])
 class TekEvent {
 
     String city

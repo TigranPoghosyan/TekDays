@@ -71,6 +71,7 @@ grails.project.dependency.resolution = {
         // asset-pipeline 2.0+ requires Java 7, use version 1.9.x with Java 6
         compile ":asset-pipeline:2.5.7"
         compile(':jasper:1.10.0')
+        compile ("org.grails.plugins:mail:1.0.7")
 //        compile ":jquery:1.10.3"
 
 

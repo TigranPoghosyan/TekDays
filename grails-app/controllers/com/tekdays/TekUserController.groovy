@@ -21,17 +21,15 @@ class TekUserController {
 
     def show(Long id) {
         def tekUserInstance
-        if(params.userName){
+        if (params.userName) {
             tekUserInstance = TekUser.findByUserName(params.userName)
-        }
-        else {
+        } else {
             tekUserInstance = TekUser.get(id)
         }
         if (!tekUserInstance) {
-            if(params.userName){
+            if (params.userName) {
                 flash.message = "TekUser not found with userName ${params.userName}"
-            }
-            else {
+            } else {
                 flash.message = "TekUser not found with id $id"
             }
             redirect(action: "index")
@@ -125,20 +123,29 @@ class TekUserController {
             '*' { render status: NOT_FOUND }
         }
     }
+    def mailService
 
     def validate() {
         def user = TekUser.findByUserName(params.username)
         if (user && user.password == params.password) {
             session.user = user
-            LOGGER.info('Successfully added user {}',session.user)
+            LOGGER.info('Successfully validated user {}', session.user)
+
+            mailService.sendMail {
+                to "${user.email}"
+                subject message(code:"email.user.login.subject",args: [user.userName])
+                html g.render(template: "mail", model: [tekUserInstance: user])
+                LOGGER.info("The email to ${session.user} sent")
+            }
+
             if (params.cName) {
-                if (params.aName == 'delete'){
-                    redirect(controller: params.cName, action:'show', id: params.id)
+                if (params.aName == 'delete') {
+                    redirect(controller: params.cName, action: 'show', id: params.id)
                     return
                 }
                 redirect controller: params.cName, action: params.aName, id: params.id
             } else {
-                redirect(uri:'/')
+                redirect(uri: '/')
                 //redirect controller: 'tekEvent', action: 'index'
             }
         } else {
@@ -149,7 +156,7 @@ class TekUserController {
 
     def login() {
         if (params.cName)
-            return [cName: params.cName, aName: params.aName, id: params.id]
+        return [cName: params.cName, aName: params.aName, id: params.id]
     }
 
     def logout = {

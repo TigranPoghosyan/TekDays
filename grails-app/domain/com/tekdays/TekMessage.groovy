@@ -3,8 +3,8 @@ package com.tekdays
 import grails.rest.*
 import org.hibernate.envers.Audited
 
+//@Resource(uri = '/tekMessage',formats = ['json','xml'])
 @Audited
-@Resource(uri = '/tekMessage',formats = ['json','xml'])
 class TekMessage {
 
     String subject

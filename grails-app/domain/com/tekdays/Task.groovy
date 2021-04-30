@@ -3,8 +3,8 @@ package com.tekdays
 import grails.rest.*
 import org.hibernate.envers.Audited
 
+//@Resource(uri = '/task',formats = ['json','xml'])
 @Audited
-@Resource(uri = '/task',formats = ['json','xml'])
 class Task {
 
     String title

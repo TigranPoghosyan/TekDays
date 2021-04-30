@@ -14,10 +14,10 @@ class TekEventController {
     def dataTablesSourceService
 
     def taskService
-    static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE", revision: "PUT"]
+    static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE", revision: "PUT", appData: "GET"]
 
     def index() {
-        [properties: ["name", "city", "organizer", "venue", "startDate", "endDate", "description", "id","Get Revision"]]
+        [properties: ["name", "city", "organizer", "venue", "startDate", "endDate", "description", "id", "Get Revision"]]
     }
 
     def show(Long id) {
@@ -42,7 +42,8 @@ class TekEventController {
     def dtList() {} //avtomat stexcume dtList.gsp vor@ irakanum chka)))
 
     def dataTablesRenderer() {
-        def propertiesToRender = ["name", "city", "organizer", "venue", "startDate", "endDate", "description", "id","id"] // petq e nkarenq ays dashter@
+        def propertiesToRender = ["name", "city", "organizer", "venue", "startDate", "endDate", "description", "id", "id"]
+        // petq e nkarenq ays dashter@
         def entityName = TekEvent.class.simpleName //classi anun@
         render dataTablesSourceService.dataTablesSource(propertiesToRender, entityName, params)
         //table@ kstana ir spaseliq Json@ ays hramanic heto
@@ -108,19 +109,34 @@ class TekEventController {
         }
     }
 
-    def appData(){
+    def appData() {
         def data = TekEvent.get(params.id)
-        if (data){
-           def builder = new JsonBuilder()
-            def root = builder.event{
+        if (data) {
+            def builder = new JsonBuilder()
+            def root = builder.event {
+
                 city(data.city)
                 name(data.name)
+                description(data.description)
             }
-            render root
-        }
-        else {
-            data = TekEvent.list(params.id)
-            render data
+            render root as JSON
+        } else {
+            data = TekEvent.list()
+            def builder = new JsonBuilder()
+            def list = builder.events {
+                event data.collect() {
+                    [city       : it.city,
+                     name       : it.name,
+                     description: it.description,
+                     start_date : it.startDate,
+                     end_date   : it.endDate,
+                     venue      : it.venue,
+                     volunteers : it.volunteers.collect {
+                         [name: it.fullName]
+                     }]
+                }
+            }
+            render list as JSON
         }
     }
 
@@ -159,11 +175,6 @@ class TekEventController {
         }
     }
 
-    def search = {
-        if (params.query) {
-            def events = TekEvent.search(params.query).results
-        }
-    }
     def volunteer = {
         def event = TekEvent.get(params.id)
         event.addToVolunteers(session.user)

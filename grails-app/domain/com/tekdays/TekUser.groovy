@@ -3,9 +3,8 @@ package com.tekdays
 import org.hibernate.envers.Audited
 import grails.rest.*
 
-
+//@Resource(uri = '/tekUser',formats = ['json','xml'])
 @Audited
-@Resource(uri = '/tekUser',formats = ['json','xml'])
 class TekUser {
 
     String fullName

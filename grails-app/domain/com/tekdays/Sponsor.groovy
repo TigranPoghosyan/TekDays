@@ -3,8 +3,8 @@ package com.tekdays
 import org.hibernate.envers.Audited
 import grails.rest.*
 
+//@Resource(uri = '/sponsor',formats = ['json','xml'])
 @Audited
-@Resource(uri = '/sponsor',formats = ['json','xml'])
 class Sponsor {
 
 

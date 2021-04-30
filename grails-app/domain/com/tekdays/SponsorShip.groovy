@@ -3,8 +3,8 @@ package com.tekdays
 import grails.rest.*
 import org.hibernate.envers.Audited
 
+//@Resource(uri = '/sponsorShip',formats = ['json','xml'])
 @Audited
-@Resource(uri = '/sponsorShip',formats = ['json','xml'])
 class SponsorShip {
 
     TekEvent event
